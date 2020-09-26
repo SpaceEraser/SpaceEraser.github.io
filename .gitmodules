@@ -1,3 +1,6 @@
 [submodule "projects/wordscapes_helper"]
 	path = projects/wordscapes_helper
 	url = https://github.com/SpaceEraser/wordscapes_helper
+[submodule "projects/evolutionary_regression"]
+	path = projects/evolutionary_regression
+	url = https://github.com/SpaceEraser/evolutionary_regression
