@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    table.marathon-plan thead tr:nth-child(1) {
+      background: white;
+      position: sticky;
+      top: 0;
+    }
+  </style>
+
+  <title>Metric to Marathon</title>
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="container-md">
+    <h1 class="mt-2 text-center">Metric to Marathon</h1>
+    <table class="marathon-plan table table-hover table-bordered table-sm table-striped text-center mt-4"
+      data-toggle="table" data-sticky-header="true">
+      <thead>
+        <tr>
+          <th scope="col">Week</th>
+          <th scope="col">Monday</th>
+          <th scope="col">Tuesday</th>
+          <th scope="col">Wednesday</th>
+          <th scope="col">Thursday</th>
+          <th scope="col">Friday</th>
+          <th scope="col">Saturday</th>
+          <th scope="col">Sunday</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#1</td>
+          <td><b>3</b><sub>5m[J30s;W60s]</sub></td>
+          <td>Walk<sub>15m</sub></td>
+          <td><b>3</b><sub>5m[J30s;W60s]</sub></td>
+          <td>Walk<sub>20m</sub></td>
+          <td>-</td>
+          <td><b>3</b><sub>5m[J30s;W60s]</sub></td>
+          <td>-</td>
+          <td>9</td>
+        </tr>
+        <tr>
+          <td>#2</td>
+          <td><b>3</b><sub>5m[J60s;W90s]</sub></td>
+          <td>Walk<sub>20m</sub></td>
+          <td><b>3</b><sub>5m[J60s;W90s]</sub></td>
+          <td>Walk<sub>25m</sub></td>
+          <td>-</td>
+          <td><b>3</b><sub>5m[J60s;W90s]</sub></td>
+          <td>-</td>
+          <td>9</td>
+        </tr>
+        <tr>
+          <td>#3</td>
+          <td><b>3</b><sub>5m[J90s;W90s]</sub></td>
+          <td>Walk<sub>25m</sub></td>
+          <td><b>3</b><sub>5m[J90s;W90s]</sub></td>
+          <td>Walk<sub>30m</sub></td>
+          <td>-</td>
+          <td><b>3</b><sub>5m[J90s;W90s]</sub></td>
+          <td>-</td>
+          <td>9</td>
+        </tr>
+        <tr>
+          <td>#4</td>
+          <td><b>3</b><sub>[J90s;W60s]</sub></td>
+          <td>Walk<sub>30m</sub></td>
+          <td><b>3</b><sub>[J90s;W60s]</sub></td>
+          <td>Walk<sub>35m</sub></td>
+          <td>-</td>
+          <td><b>5</b><sub>[J90s;W60s]</sub></td>
+          <td>-</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>#5</td>
+          <td><b>3</b><sub>[J½;W½]</sub></td>
+          <td>Walk<sub>35m</sub></td>
+          <td><b>3</b><sub>[J½;W½]</sub></td>
+          <td>Walk<sub>40m</sub></td>
+          <td>-</td>
+          <td><b>5</b><sub>[J½;W½]</sub></td>
+          <td>-</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>#6</td>
+          <td><b>5</b><sub>[J½;W½]</sub></td>
+          <td>X-Train</td>
+          <td><b>5</b><sub>[J½;W½]</sub></td>
+          <td>Strength</td>
+          <td><b>3</b><sub>[J½;W½]</sub>; Yoga/Rest</td>
+          <td><b>5</b><sub>[J1;W½]</sub></td>
+          <td>-</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>#7</td>
+          <td><b>5</b><sub>[J1;W½]</sub></td>
+          <td>X-Train</td>
+          <td><b>5</b><sub>[J1;W½]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b><sub>[J½;W½]</sub>; Yoga/Rest</td>
+          <td><b>6.5</b><sub>[J1;W½]</sub></td>
+          <td>-</td>
+          <td>21.5</td>
+        </tr>
+        <tr>
+          <td>#8</td>
+          <td><b>5</b><sub>[J1;W½]</sub></td>
+          <td>X-Train</td>
+          <td><b>3</b>
+          <td>Strength</td>
+          <td><b>5</b><sub>[J1;W½]</sub>; Yoga/Rest</td>
+          <td><b>6.5</b><sub>[J1;W½]</sub></td>
+          <td>-</td>
+          <td>19.5</td>
+        </tr>
+        <tr>
+          <td>#9</td>
+          <td><b>3</b></td>
+          <td>X-Train</td>
+          <td><b>5</b><sub>[R1.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>3</b>; Yoga/Rest</td>
+          <td><b>8</b><sub>[J1;W½]</sub></td>
+          <td>-</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>#10</td>
+          <td><b>4</b></td>
+          <td>X-Train</td>
+          <td><b>5</b><sub>[R1.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>4</b>; Yoga/Rest</td>
+          <td><b>8</b><sub>[J1;W½]</sub></td>
+          <td>-</td>
+          <td>21</td>
+        </tr>
+        <tr>
+          <td>#11</td>
+          <td><b>4</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b><sub>[R1.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>4</b>; Yoga/Rest</td>
+          <td><b>8</b><sub>[J1;W½]</sub></td>
+          <td>-</td>
+          <td>22.5</td>
+        </tr>
+        <tr>
+          <td>#12</td>
+          <td><b>3</b></td>
+          <td>X-Train</td>
+          <td><b>5</b></td>
+          <td>Strength</td>
+          <td><b>3</b>; Yoga/Rest</td>
+          <td><b>8</b><sub>[J1.5;W½]</sub></td>
+          <td>-</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>#13</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>10</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>26.5</td>
+        </tr>
+        <tr>
+          <td>#14</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>10</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>26.5</td>
+        </tr>
+        <tr>
+          <td>#15</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>11.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>28</td>
+        </tr>
+        <tr>
+          <td>#16</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>11.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>28</td>
+        </tr>
+        <tr>
+          <td>#17</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>13</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>29.5</td>
+        </tr>
+        <tr>
+          <td>#18</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>8</b><sub>[R1.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>13</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>31</td>
+        </tr>
+        <tr>
+          <td>#19</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>8</b><sub>[R1.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>14.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>32.5</td>
+        </tr>
+        <tr>
+          <td>#20</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R3.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>14.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>34.5</td>
+        </tr>
+        <tr>
+          <td>#21</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R3.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>16</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>36</td>
+        </tr>
+        <tr>
+          <td>#22</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>16</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39</td>
+        </tr>
+        <tr>
+          <td>#23</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R3.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>19.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39.5</td>
+        </tr>
+        <tr>
+          <td>#24</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R3.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>19.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39.5</td>
+        </tr>
+        <tr>
+          <td>#25</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R3.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>21</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>41</td>
+        </tr>
+        <tr>
+          <td>#26</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R3.5;R2m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>21</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>41</td>
+        </tr>
+        <tr>
+          <td>#27</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>22.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39</td>
+        </tr>
+        <tr>
+          <td>#28</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>6.5</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>22.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39</td>
+        </tr>
+        <tr>
+          <td>#29</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>19.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39.5</td>
+        </tr>
+        <tr>
+          <td>#30</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>24</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>44</td>
+        </tr>
+        <tr>
+          <td>#31</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>24</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>45.5</td>
+        </tr>
+        <tr>
+          <td>#32</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>26</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>46</td>
+        </tr>
+        <tr>
+          <td>#33</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>26</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>46</td>
+        </tr>
+        <tr>
+          <td>#34</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b><sub>[R5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>6.5</b>; Yoga/Rest</td>
+          <td><b>19.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>42.5</td>
+        </tr>
+        <tr>
+          <td>#35</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>27.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>50.5</td>
+        </tr>
+        <tr>
+          <td>#36</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R3.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>27.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>50.5</td>
+        </tr>
+        <tr>
+          <td>#37</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R6.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>22.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>45.5</td>
+        </tr>
+        <tr>
+          <td>#38</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R6.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>29</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>52</td>
+        </tr>
+        <tr>
+          <td>#39</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R6.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>29</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>52</td>
+        </tr>
+        <tr>
+          <td>#40</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R6.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>30.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>53.5</td>
+        </tr>
+        <tr>
+          <td>#41</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R6.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>30.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>53.5</td>
+        </tr>
+        <tr>
+          <td>#42</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>13</b><sub>[R6.5;R3m]</sub></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>26</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>49</td>
+        </tr>
+        <tr>
+          <td>#43</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>8</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>32</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>51.5</td>
+        </tr>
+        <tr>
+          <td>#44</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>8</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>34</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>53.5</td>
+        </tr>
+        <tr>
+          <td>#45</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>8</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>35.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>55</td>
+        </tr>
+        <tr>
+          <td>#46</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>8</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>35.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>55</td>
+        </tr>
+        <tr>
+          <td>#47</td>
+          <td><b>6.5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b></td>
+          <td>Strength</td>
+          <td><b>6.5</b>; Yoga/Rest</td>
+          <td><b>29</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>52</td>
+        </tr>
+        <tr>
+          <td>#48</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>37</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>57</td>
+        </tr>
+        <tr>
+          <td>#49</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>38.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>58.5</td>
+        </tr>
+        <tr>
+          <td>#50</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>29</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>49</td>
+        </tr>
+        <tr>
+          <td>#51</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>10</b></td>
+          <td>Strength</td>
+          <td><b>5</b>; Yoga/Rest</td>
+          <td><b>19.5</b><sub>[J1.5;W1m]</sub></td>
+          <td>-</td>
+          <td>39.5</td>
+        </tr>
+        <tr>
+          <td>#52</td>
+          <td><b>5</b></td>
+          <td>X-Train</td>
+          <td><b>3.5</b></td>
+          <td>Yoga</td>
+          <td>-</td>
+          <td><b>3.5</b><sub>[J1.5;W1m]</sub></td>
+          <td><b>42.2</b></td>
+          <td>54.2</td>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="col" colspan="8"></th>
+          <th scope="col">1924</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</body>
+
+</html>
