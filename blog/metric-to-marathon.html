@@ -105,26 +105,26 @@ program:
             {% for week in page.program -%}
               {%- assign weekly_kms = 0 -%}
               <tr>
-              <td>#{{ week_num }}</td>
-              {%- for day in week -%}
+                <td>#{{ week_num }}</td>
+                {%- for day in week -%}
                 <td>
-                {%- if day.size > 1 -%}
-                  {%- if day[0] -%}
-                    {%- assign weekly_kms = weekly_kms | plus: day[1] -%}
-                    <b>{{ day[1] }}</b>
-                  {%- else -%}
-                    {{ day[1] }}
-                  {%- endif -%}
+                  {%- if day.size > 1 -%}
+                    {%- if day[0] -%}
+                      {%- assign weekly_kms = weekly_kms | plus: day[1] -%}
+                      <b>{{ day[1] }}</b>
+                    {%- else -%}
+                      {{ day[1] }}
+                    {%- endif -%}
 
-                  {%- if day[2] -%}
+                    {%- if day[2] -%}
                     <sub>{{ day[2] }}</sub>
-                  {%- endif -%}
-                {%- else -%}
+                    {%- endif -%}
+                  {%- else -%}
                   -
-                {%- endif -%}
+                  {%- endif -%}
                 </td>
-              {%- endfor -%}
-              <td>{{ weekly_kms }}</td>
+                {%- endfor -%}
+                <td>{{ weekly_kms }}</td>
               </tr>
               {%- assign week_num = week_num | plus: 1 -%}
               {%- assign total_kms = total_kms | plus: weekly_kms -%}
