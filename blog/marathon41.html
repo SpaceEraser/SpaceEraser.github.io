@@ -1,0 +1,97 @@
+---
+program_dividers: [6, 10, 16, 20, 28]
+program:
+  - ["core", "-", ["5w","5x3w/1r","5w"], "yoga", ["5w","5x3w/1r","5w"], "-", ["5w","5x2.5w","1.5r/5w"]]
+  - ["core", "-", ["4w","5x2.5w/1.5r","4w"], "yoga", ["4w","5x2w/2r","4w"], "-", ["4w","3x2W/2R","1x3w/6r","4w"]]
+  - ["core", "-", ["4w","6x2w/2r","4w"], "yoga", ["4W","6x1.5w/2.5r","4W"], "-", ["4W","2km","4W"]]
+  - ["core", "-", ["4R","6x1.5w/2.5r","4W"], "yoga", ["4R","6x1w/3r","4W"], "-", ["4W","3km","4W"]]
+  - ["core", "-", ["5R","4x1w/5r","5W"], "yoga", ["5R","4x1w/7r","5W"], "-", ["4W","4km","4W"]]
+  - ["core", "-", ["5R","5R","5x1w/7r","5W"], "yoga", ["5R","3x1w/10r","5W"], "-", "5km"]
+  - ["core", "-", "3km", "yoga", "3km", "-", "3km"]
+  - ["core", "-", "3km", "yoga", "3km", "-", "4km"]
+  - ["core", "-", "3km", "yoga", "4km", "-", "5km"]
+  - ["core", "-", "2km", "yoga", "2km", "-", "3km"]
+  - ["core", "-", "4km", "yoga", "3km", "-", "4km"]
+  - ["core", "-", "4km", "yoga", "4km", "-", "5km"]
+  - ["core", "Intervals 20", "5km", "yoga", "5km", "-", "6km"]
+  - ["core", "Intervals 30", "6km", "yoga", "6km", "-", "7km"]
+  - ["core", "Intervals 40", "7km", "yoga", "6km", "-", "8km"]
+  - ["core", "-", "Intervals 20", "yoga", "Intervals 20", "-", "10km"]
+  - ["core", "-", "6km", "yoga", "6km", "-", "6km"]
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    table thead tr:nth-child(1) {
+      background: white;
+      position: sticky;
+      top: 0;
+    }
+    table tbody tr td {
+      vertical-align: middle;
+    }
+  </style>
+
+  <title>Marathon 41</title>
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="container-md">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="mt-2">Marathon 41</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-hover table-bordered table-sm table-striped text-center mt-4"
+          data-toggle="table" data-sticky-header="true">
+          <thead>
+            <tr>
+              <th scope="col">Week</th>
+              <th scope="col">Monday</th>
+              <th scope="col">Tuesday</th>
+              <th scope="col">Wednesday</th>
+              <th scope="col">Thursday</th>
+              <th scope="col">Friday</th>
+              <th scope="col">Saturday</th>
+              <th scope="col">Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- assign week_num = 1 -%}
+            {% for week in page.program -%}
+              <tr {%- for divider in page.program_dividers -%}{%- if divider == week_num %} style="border-bottom: solid 2px;"{%- endif -%}{%- endfor -%}>
+                <td>#{{ week_num }}</td>
+                {%- for day in week -%}
+                <td>
+                  {%- if day.size > 1 -%}
+                    {%- for part in day -%}
+                      {{- part | downcase -}}<br/>
+                    {%- endfor -%}
+                  {%- else -%}
+                    {{- day | downcase -}}
+                  {%- endif -%}
+                </td>
+                {%- endfor -%}
+              </tr>
+              {%- assign week_num = week_num | plus: 1 -%}
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
