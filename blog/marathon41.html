@@ -13,11 +13,35 @@ program:
   - ["core", "-", "2km", "yoga", "2km", "-", "3km"]
   - ["core", "-", "4km", "yoga", "3km", "-", "4km"]
   - ["core", "-", "4km", "yoga", "4km", "-", "5km"]
-  - ["core", "Intervals 20", "5km", "yoga", "5km", "-", "6km"]
-  - ["core", "Intervals 30", "6km", "yoga", "6km", "-", "7km"]
-  - ["core", "Intervals 40", "7km", "yoga", "6km", "-", "8km"]
-  - ["core", "-", "Intervals 20", "yoga", "Intervals 20", "-", "10km"]
+  - ["core", "20m intervals", "5km", "yoga", "5km", "-", "6km"]
+  - ["core", "30m intervals", "6km", "yoga", "6km", "-", "7km"]
+  - ["core", "40m intervals", "7km", "yoga", "6km", "-", "8km"]
+  - ["core", "-", "20m intervals", "yoga", "20m intervals", "-", "10km"]
   - ["core", "-", "6km", "yoga", "6km", "-", "6km"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +63,9 @@ program:
     table tbody tr td {
       vertical-align: middle;
     }
+    .today {
+      background-color: rgba(255, 128, 0, 0.25) !important;
+    }
   </style>
 
   <title>Marathon 41</title>
@@ -47,10 +74,22 @@ program:
 <body>
   <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-  <div class="container-md">
+  <div class="container-md mb-3">
     <div class="row">
       <div class="col-12 text-center">
         <h1 class="mt-2">Marathon 41</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <form action="javascript:void(0);">
+          <div class="form-group row">
+            <label for="date" class="col-sm-2 col-form-label">Race Date</label>
+            <div class="col-sm-10">
+              <input id="date" name="date" type="date" class="form-control">
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <div class="row">
@@ -91,7 +130,137 @@ program:
         </table>
       </div>
     </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="card" id="intervals-20">
+          <div class="card-body">
+            <h5 class="card-title">20m intervals</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">5 MINUTE EASY JOG WARM UP</li>
+            <li class="list-group-item">10 X 30 SECONDS HARD RUNNING / 30 SECONDS SLOW JOG OR WALK</li>
+            <li class="list-group-item">5 MINS EASY COOL DOWN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card" id="intervals-30">
+          <div class="card-body">
+            <h5 class="card-title">30m intervals</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">1KM EASY JOG WARM UP</li>
+            <li class="list-group-item">5 X 30S EASY/20S TEMPO/10S HARD</li>
+            <li class="list-group-item">2 MINS WALK</li>
+            <li class="list-group-item">5 X 30S EASY/20S TEMPO/ 10S HARD</li>
+            <li class="list-group-item">2 MINS WALK</li>
+            <li class="list-group-item">5 X 30S EASY/20S TEMPO/ 10S HARD</li>
+            <li class="list-group-item">2 MINS WALK</li>
+            <li class="list-group-item">1KM COOL DOWN EASY JOG</li>
+          </ul>
+        </div>
+      </div>  
+      <div class="col-3">
+        <div class="card" id="intervals-40">
+          <div class="card-body">
+            <h5 class="card-title">40m intervals</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">10 MINUTE EASY JOG WARM UP</li>
+            <li class="list-group-item">5 X 3 MINS HARD RUN / 1 MINS SLOW JOG OR WALK</li>
+            <li class="list-group-item">10 MINS EASY JOG WALK COOL DOWN</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card" id="intervals-50">
+          <div class="card-body">
+            <h5 class="card-title">50m intervals</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">10 MINS EASY JOG WARM UP</li>
+            <li class="list-group-item">4 X 5 MINS AT TEMPO (7 OR 8/10 RPE) WITH 2.5MINS RECOVERY BETWEEN EACH</li>
+            <li class="list-group-item">10 MINS EASY JOG COOL DOWN</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
+  <script>
+    $(function() {
+      let date_cookie = getCookie("date");
+      let date = null;
+      if (date_cookie) {
+        $('#date').val(date_cookie);
+        date = deserializeDate(date_cookie);
+        updateHighlight(date);
+      }
+      $('#date').on('change', function() {
+        const date_str = $(this).val();
+        setCookie("date", date_str, 365*5); // store for 5 years
+        date = deserializeDate(date_str);
+        updateHighlight(date);
+      });
+      setInterval(function () {
+        updateHighlight(date);
+      }, 1000 * 60 * 60 * 6); // repeat every 6 hours
+    });
+
+    function updateHighlight(date) {
+      const now = new Date();
+      const program_num_weeks = $("table tbody tr").length;
+      const next_monday_after_date = addDays(date, 7 - mod(date.getDay()-1, 7));
+      const program_start_ts = next_monday_after_date.getTime() - (program_num_weeks * 1000 * 60 * 60 * 24 * 7);
+      const elapsed_days = (now.getTime() - program_start_ts) / (1000 * 60 * 60 * 24);
+      const elapsed_weeks = Math.ceil(elapsed_days / 7);
+      const elapsed_dow = Math.floor(elapsed_days) % 7;
+
+      if (elapsed_days < 0 || elapsed_weeks > program_num_weeks) {
+        return;
+      }
+
+      $(".today").removeClass("today");
+      $(`table tbody tr:nth-child(${elapsed_weeks}) td:nth-child(${elapsed_dow+2})`).addClass("today");
+    }
+
+    function mod(v, m) {
+      return ((v % m) + m) % m;
+    }
+
+    function addDays(date, days) {
+      var result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
+    function deserializeDate(str) {
+      const [year, month, date] = str.split("-");
+      return new Date(year, month - 1, date);
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return null;
+    }
+  </script>
 </body>
 
 </html>
