@@ -6,7 +6,7 @@ program:
   - ["core", "-", ["4w","6x2w/2r","4w"], "yoga", ["4W","6x1.5w/2.5r","4W"], "-", ["4W","2km","4W"]]
   - ["core", "-", ["4R","6x1.5w/2.5r","4W"], "yoga", ["4R","6x1w/3r","4W"], "-", ["4W","3km","4W"]]
   - ["core", "-", ["5R","4x1w/5r","5W"], "yoga", ["5R","4x1w/7r","5W"], "-", ["4W","4km","4W"]]
-  - ["core", "-", ["5R","5R","5x1w/7r","5W"], "yoga", ["5R","3x1w/10r","5W"], "-", "5km"]
+  - ["core", "-", ["5R","5x1w/7r","5W"], "yoga", ["5R","3x1w/10r","5W"], "-", "5km"]
   - ["core", "-", "3km", "yoga", "3km", "-", "3km"]
   - ["core", "-", "3km", "yoga", "3km", "-", "4km"]
   - ["core", "-", "3km", "yoga", "4km", "-", "5km"]
@@ -18,6 +18,17 @@ program:
   - ["core", "40m intervals", "7km", "yoga", "6km", "-", "8km"]
   - ["core", "-", "20m intervals", "yoga", "20m intervals", "-", "10km"]
   - ["core", "-", "6km", "yoga", "6km", "-", "6km"]
+  - ["core", "-", "6km", "yoga", "7km", "-", "8km"]
+  - ["core", "-", "7km", "yoga", "8km", "-", "6km"]
+  - ["core", "-", "5km", "yoga", "5km", "-", "5km"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "21.1km"]
   - ["-", "-", "-", "-", "-", "-", "-"]
   - ["-", "-", "-", "-", "-", "-", "-"]
   - ["-", "-", "-", "-", "-", "-", "-"]
@@ -30,18 +41,7 @@ program:
   - ["-", "-", "-", "-", "-", "-", "-"]
   - ["-", "-", "-", "-", "-", "-", "-"]
   - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
-  - ["-", "-", "-", "-", "-", "-", "-"]
+  - ["-", "-", "-", "-", "-", "-", "42.2km"]
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -81,11 +81,11 @@ program:
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <form action="javascript:void(0);">
           <div class="form-group row">
-            <label for="date" class="col-sm-2 col-form-label">Race Date</label>
-            <div class="col-sm-10">
+            <label for="date" class="col-4 col-form-label text-end" style="white-space: nowrap;">Race Date (week of)</label>
+            <div class="col-8">
               <input id="date" name="date" type="date" class="form-control">
             </div>
           </div>
@@ -131,7 +131,7 @@ program:
       </div>
     </div>
     <div class="row">
-      <div class="col-3">
+      <div class="col-lg-3 col-md-6 mb-2">
         <div class="card" id="intervals-20">
           <div class="card-body">
             <h5 class="card-title">20m intervals</h5>
@@ -143,7 +143,7 @@ program:
           </ul>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-lg-3 col-md-6 mb-2">
         <div class="card" id="intervals-30">
           <div class="card-body">
             <h5 class="card-title">30m intervals</h5>
@@ -160,7 +160,7 @@ program:
           </ul>
         </div>
       </div>  
-      <div class="col-3">
+      <div class="col-lg-3 col-md-6 mb-2">
         <div class="card" id="intervals-40">
           <div class="card-body">
             <h5 class="card-title">40m intervals</h5>
@@ -172,7 +172,7 @@ program:
           </ul>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-lg-3 col-md-6 mb-2">
         <div class="card" id="intervals-50">
           <div class="card-body">
             <h5 class="card-title">50m intervals</h5>
@@ -183,6 +183,27 @@ program:
             <li class="list-group-item">10 MINS EASY JOG COOL DOWN</li>
           </ul>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <pre>
+          TODO: finish data entry
+        </pre>
+        <pre>
+          TODO: link to pace equivalency calculator for 5km (hard running) time
+          (ex: https://lukehumphreyrunning.com/hmmcalculator/race_equivalency_calculator.php)
+        </pre>
+        <pre>
+          TODO: link intervals to cards
+        </pre>
+        <pre>
+          TODO: Add non-negotiables:
+          1. STRETCH AFTER EVERY SESSION
+          2. DON'T NEGLECT STRENGTH AND CONDITIONING
+          3. RESPECT THE REST & RECOVERY
+          4. ENJOY IT 
+        </pre>
       </div>
     </div>
   </div>
@@ -203,10 +224,16 @@ program:
       });
       setInterval(function () {
         updateHighlight(date);
-      }, 1000 * 60 * 60 * 6); // repeat every 6 hours
+      }, 1000 * 60 * 60); // repeat every hour
     });
 
     function updateHighlight(date) {
+      $(".today").removeClass("today");
+      
+      if (!(date instanceof Date)) {
+        return;
+      } 
+
       const now = new Date();
       const program_num_weeks = $("table tbody tr").length;
       const next_monday_after_date = addDays(date, 7 - mod(date.getDay()-1, 7));
@@ -219,7 +246,6 @@ program:
         return;
       }
 
-      $(".today").removeClass("today");
       $(`table tbody tr:nth-child(${elapsed_weeks}) td:nth-child(${elapsed_dow+2})`).addClass("today");
     }
 
