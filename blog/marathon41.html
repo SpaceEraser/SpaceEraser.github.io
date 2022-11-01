@@ -63,8 +63,11 @@ program:
     table tbody tr td {
       vertical-align: middle;
     }
+    .this-week {
+      background-color: rgba(128, 255, 0, 0.25);
+    }
     .today {
-      background-color: rgba(255, 128, 0, 0.25) !important;
+      background-color: rgba(255, 64, 0, 0.25) !important;
     }
   </style>
 
@@ -84,7 +87,7 @@ program:
       <div class="col-12">
         <form action="javascript:void(0);">
           <div class="form-group row">
-            <label for="date" class="col-4 col-form-label text-end" style="white-space: nowrap;">Race Date (week of)</label>
+            <label for="date" class="col-4 col-form-label text-end">Race&nbsp;Date (week&nbsp;of)</label>
             <div class="col-8">
               <input id="date" name="date" type="date" class="form-control">
             </div>
@@ -94,7 +97,7 @@ program:
     </div>
     <div class="row">
       <div class="col-12">
-        <table class="table table-hover table-bordered table-sm table-striped text-center mt-4"
+        <table class="table table-bordered table-sm text-center mt-4"
           data-toggle="table" data-sticky-header="true">
           <thead>
             <tr>
@@ -228,7 +231,7 @@ program:
     });
 
     function updateHighlight(date) {
-      $(".today").removeClass("today");
+      $(".today, .this-week").removeClass("today").removeClass("this-week");
       
       if (!(date instanceof Date)) {
         return;
@@ -246,7 +249,8 @@ program:
         return;
       }
 
-      $(`table tbody tr:nth-child(${elapsed_weeks}) td:nth-child(${elapsed_dow+2})`).addClass("today");
+      const $this_week = $(`table tbody tr:nth-child(${elapsed_weeks})`).addClass("this-week");
+      $this_week.find(`td:nth-child(${elapsed_dow+2})`).addClass("today");
     }
 
     function mod(v, m) {
