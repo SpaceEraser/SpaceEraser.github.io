@@ -63,6 +63,9 @@ program:
     table tbody tr td {
       vertical-align: middle;
     }
+    table tbody tr td:first-child {
+      cursor: pointer;
+    }
     .this-week {
       background-color: rgba(0, 0, 0, 0.25);
     }
@@ -210,8 +213,12 @@ program:
   </div>
   <script>
     $(function() {
-      let date_cookie = getCookie("date");
+      const date_cookie = getCookie("date");
       let date = null;
+
+      if (getCookie("countdown") === "true") {
+        swapCountdowns();
+      }
 
       if (date_cookie) {
         $('#date').val(date_cookie);
@@ -221,9 +228,14 @@ program:
 
       $('#date').on('change', function() {
         const date_str = $(this).val();
-        setCookie("date", date_str, 365*5); // store for 5 years
+        setCookie("date", date_str, 365);
         date = deserializeDate(date_str);
         updateHighlight(date);
+      });
+
+      $('table tbody tr td:first-child').on('click', () => {
+        setCookie("countdown", getCookie("countdown") == "false", 365);
+        swapCountdowns();
       });
 
       setInterval(function () {
@@ -241,6 +253,22 @@ program:
     //     s > 9 ? s : '0' + s
     //   ].filter(Boolean).join(':');
     // }
+
+    function swapCountdowns() {
+      const program_num_weeks = $("table tbody tr").length;
+
+      for (const el of $('table tbody tr td:first-child')) {
+        const $el = $(el);
+        const text_match = $el.text().match(/(-|#)?(\d+)/);
+        const num = parseInt(text_match[2], 10);
+        const inverse_num = program_num_weeks - num;
+        if (text_match[1] === '#') {
+          $el.text(`${inverse_num == 0 ? '' : '-'}${inverse_num}`);
+        } else {
+          $el.text(`#${inverse_num}`);
+        }
+      }
+    }
 
     function updateHighlight(date) {
       $(".today, .this-week").removeClass("today").removeClass("this-week");
@@ -270,7 +298,7 @@ program:
     }
 
     function addDays(date, days) {
-      var result = new Date(date);
+      const result = new Date(date);
       result.setDate(result.getDate() + days);
       return result;
     }
