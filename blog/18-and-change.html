@@ -83,12 +83,13 @@ program:
     table tbody tr td:first-child {
       cursor: pointer;
     }
-    .this-week {
-      background-color: rgba(0, 0, 0, 0.25) !important;
+    tr.this-week {
+      border-top: black 3px dotted;
+      border-bottom: black 3px dotted;
     }
-    .today {
-      background-color: rgba(0, 0, 0, 0.5) !important;
-      color: white;
+    td.today {
+      border-left: black 3px dotted;
+      border-right: black 3px dotted;
     }
     td.recovery {
       background-color: #CFE2F3;
@@ -155,12 +156,14 @@ program:
             <label for="pace" class="col-form-label text-end me-2">Pace</label>
             <div class="flex-grow-1">
               <div class="input-group">
-                <input id="pace" name="pace" type="pace" class="form-control" placeholder="00:00">
-                <span class="input-group-text">min/km</span>
-                <!-- <select class="selectpicker form-control" data-live-search="true">
-                  <option value="km">min/km</option>
-                  <option value="mi">min/mi</option>
-                </select> -->
+                <input id="pace" name="pace" type="pace" class="form-control">
+                <!-- <span class="input-group-text">min/km</span> -->
+                <select name="pace-unit" id="pace-unit" class="selectpicker form-control" data-live-search="true">
+                  <option value="SecPerKm">/km</option>
+                  <option value="SecPerMi">/mi</option>
+                  <option value="KmPerHour">km/h</option>
+                  <option value="MiPerHour">mi/h</option>
+                </select>
               </div>
             </div>
           </div>
@@ -284,72 +287,73 @@ program:
     </div>
   </div>
   <script>
-    $(function() {
-      "use strict";
-
-      const date_cookie = getCookie("date");
-      const pace_cookie = getCookie("pace");
-      const maxhr_cookie = getCookie("maxhr");
-      let date = null;
-      let pace = null;
-      let maxhr = null;
-
-      if (getCookie("countdown") === "true") {
-        swapCountdowns();
-      }
-
-      if (date_cookie) {
-        $('#date').val(date_cookie);
-        date = deserializeDate(date_cookie);
-        updateHighlight(date);
-      }
-
-      if (pace_cookie) {
-        $('#pace').val(pace_cookie);
-        pace = deserializeTime(pace_cookie);
-        updatePace(pace, maxhr);
-      }
-
-      if (maxhr_cookie) {
-        $('#maxhr').val(maxhr_cookie);
-        maxhr = parseInt(maxhr_cookie, 10);
-        updatePace(pace, maxhr);
-      }
-
-      $('#date').on('change', function() {
-        const date_str = $(this).val();
-        date = deserializeDate(date_str);
-        setCookie('date', date_str, 365);
-        updateHighlight(date);
-      });
-
-      $('#pace').on('change', function() {
-        const pace_str = $(this).val();
-        pace = deserializeTime(pace_str);
-        if (isNaN(pace)) return;
-        setCookie('pace', pace_str, 365);
-        updatePace(pace, maxhr);
-      });
-
-      $('#maxhr').on('change', function() {
-        const maxhr_str = $(this).val();
-        maxhr = parseInt(maxhr_str, 10);
-        if (isNaN(maxhr)) return;
-        setCookie('maxhr', maxhr_str, 365);
-        updatePace(maxhr, maxhr);
-      });
-
-      $('table tbody tr td:first-child').on('click', () => {
-        setCookie("countdown", getCookie("countdown") == "false", 365);
-        swapCountdowns();
-      });
-
-      setInterval(function () {
-        updateHighlight(date);
-      }, 1000 * 60 * 60); // repeat every hour
+    const PaceUnit = Object.freeze({
+      SecPerKm: 0,
+      SecPerMi: 1,
+      KmPerHour: 2,
+      MiPerHour: 3,
     });
+    const KM_PER_MI = 1.60934;
+    const SEC_PER_HOUR = 60.0 * 60.0;
+    const ConvertPace = {
+      FromSecPerKm: 0,
+      ToSecPerKm: 1,
+    };
+    ConvertPace[PaceUnit.SecPerKm] = {};
+    ConvertPace[PaceUnit.SecPerKm][ConvertPace.FromSecPerKm] = (p) => p;
+    ConvertPace[PaceUnit.SecPerKm][ConvertPace.ToSecPerKm] = (p) => p;
+    ConvertPace[PaceUnit.SecPerMi] = {};
+    ConvertPace[PaceUnit.SecPerMi][ConvertPace.FromSecPerKm] = (p) => p * KM_PER_MI;
+    ConvertPace[PaceUnit.SecPerMi][ConvertPace.ToSecPerKm] = (p) => p / KM_PER_MI;
+    ConvertPace[PaceUnit.KmPerHour] = {};
+    ConvertPace[PaceUnit.KmPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / p;
+    ConvertPace[PaceUnit.KmPerHour][ConvertPace.ToSecPerKm] = (p) => SEC_PER_HOUR / p;
+    ConvertPace[PaceUnit.MiPerHour] = {};
+    ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
+    ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
 
-    function formatTime(seconds) {  
+    function serializePace(sec_per_km, pace_unit) {
+      if (!(pace_unit in Object.values(PaceUnit))) {
+        return null;
+      }
+
+      const converted = ConvertPace[pace_unit][ConvertPace.FromSecPerKm](sec_per_km);
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
+        return serializeTime(converted);
+      }
+      else {
+        return `${round_to_decimal(converted, 1)}`;
+      }
+    }
+
+    function deserializePace(str, pace_unit) {
+      if (!(pace_unit in Object.values(PaceUnit))) {
+        return null;
+      }
+      let num;
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
+        num = deserializeTime(str);
+      }
+      else {
+        num = parseFloat(str);
+      }
+      return ConvertPace[pace_unit][ConvertPace.ToSecPerKm](num)
+    }
+
+    function displayPaceUnit(pace_unit) {
+      const PrettyPaceUnit = {}
+      PrettyPaceUnit[PaceUnit.SecPerKm] = "/km";
+      PrettyPaceUnit[PaceUnit.SecPerMi] = "/mi";
+      PrettyPaceUnit[PaceUnit.KmPerHour] = "&nbsp;km/h";
+      PrettyPaceUnit[PaceUnit.MiPerHour] = "&nbsp;mi/h";
+      return PrettyPaceUnit[pace_unit];
+    }
+
+    function serializeTime(seconds) {
+      if (!Number.isFinite(seconds)) {
+        return null;
+      }
+      
       let t = [];
       const h = Math.floor(seconds / 3600);
       if (h > 0)
@@ -358,13 +362,12 @@ program:
       if (m > 0 || t.length > 0)
         t.push(`${m}`.padStart(1 + (t.length > 0), '0'));
       const s = seconds % 60;
-      if (s > 0 || t.length > 0)
-        t.push(`${s}`.padStart(1 + (t.length > 0), '0'));
+      t.push(`${round_to_decimal(s, 1 - (t.length > 0))}`.padStart(1 + (t.length > 0), '0'));
       return t.join(':');
     }
 
-    function deserializeTime(time) {
-      const t = time.split(':');
+    function deserializeTime(str) {
+      const t = str.split(':');
       return parseFloat(t.pop()||'0') +
         parseInt(t.pop()||'0', 10)*60 +
         parseInt(t.pop()||'0', 10)*3600;
@@ -386,10 +389,10 @@ program:
       }
     }
 
-    function updatePace(pace_s, maxhr) {
+    function updatePace(pace_sec_per_km, pace_unit, maxhr) {
       $("table tbody tr td .distance-addon").remove();
 
-      if (!Number.isFinite(pace_s)) {
+      if (!Number.isFinite(pace_sec_per_km) || !(pace_unit in Object.values(PaceUnit))) {
         return;
       }
 
@@ -401,9 +404,9 @@ program:
           const text_match = text_node.nodeValue.match(/(\d+(?:\.\d+)?)km/);
           if (!text_match)
             continue;
-          let pace = pace_s * (100.0 / pace_pct);
-          let time = parseFloat(text_match[1]) * pace;
-          let addon = `${formatTime(Math.ceil(time))}, ${formatTime(Math.ceil(pace))}&nbsp;min/km`;
+          const adjusted_pace_sec_per_km = pace_sec_per_km * (100.0 / pace_pct);
+          const time = parseFloat(text_match[1]) * adjusted_pace_sec_per_km;
+          let addon = `${serializeTime(Math.ceil(time))}, ${serializePace(Math.ceil(adjusted_pace_sec_per_km), pace_unit)}&#8288;${displayPaceUnit(pace_unit)}`;
           if (maxhr) {
             addon += `, ❤️&#8288;${Math.ceil(maxhr * (pace_pct / 100.0))}`;
           }
@@ -435,6 +438,10 @@ program:
 
       const $this_week = $(`table tbody tr:nth-child(${elapsed_weeks})`).addClass("this-week");
       $this_week.find(`td:nth-child(${elapsed_dow+2})`).addClass("today");
+    }
+
+    function round_to_decimal(v, d) {
+      return +v.toFixed(d);
     }
 
     function mod(v, m) {
@@ -474,6 +481,104 @@ program:
       }
       return null;
     }
+
+    // $(function() {
+      "use strict";
+
+      const date_cookie = getCookie("date");
+      const pace_cookie = getCookie("pace");
+      const pace_unit_cookie = getCookie("pace_unit");
+      const maxhr_cookie = getCookie("maxhr");
+      let date = null;
+      let pace_sec_per_km = null;
+      let pace_unit = 0;
+      let maxhr = null;
+
+      if (getCookie("countdown") === "true") {
+        swapCountdowns();
+      }
+
+      if (date_cookie) {
+        $('#date').val(date_cookie);
+        date = deserializeDate(date_cookie);
+      }
+
+      if (pace_unit_cookie) {
+        $('#pace-unit').val(pace_unit_cookie);
+        pace_unit = PaceUnit[pace_unit_cookie];
+      }
+
+      if (pace_cookie) {
+        pace_sec_per_km = deserializePace(pace_cookie, pace_unit);
+        $('#pace').val(serializePace(pace_sec_per_km, pace_unit));
+      }
+
+      if (maxhr_cookie) {
+        $('#maxhr').val(maxhr_cookie);
+        maxhr = parseInt(maxhr_cookie, 10);
+      }
+
+      $('#date').on('change', function() {
+        const date_str = $(this).val();
+        date = deserializeDate(date_str);
+        setCookie('date', date_str, 365);
+        updateHighlight(date);
+      });
+
+      $('#pace').on('change', function() {
+        const pace_str = $(this).val();
+        pace_sec_per_km = deserializePace(pace_str, pace_unit);
+        if (!Number.isFinite(pace_sec_per_km)) {
+          console.error(`Failed to deserialize pace string: ${pace_str}`);
+          return;
+        }
+        setCookie('pace', pace_str, 365);
+        updatePace(pace_sec_per_km, pace_unit, maxhr);
+      });
+
+      $('#pace-unit').on('change', function() {
+        const pace_unit_str = $(this).val();
+        if (!(pace_unit_str in PaceUnit)) {
+          console.error(`${pace_unit_str} not one of ${Object.keys(PaceUnit)}`);
+          return;
+        }
+        old_pace_unit = pace_unit;
+        pace_unit = PaceUnit[pace_unit_str];
+        if (pace_unit === old_pace_unit) {
+          return;
+        }
+        setCookie('pace_unit', pace_unit_str, 365);
+        updatePace(pace_sec_per_km, pace_unit, maxhr);
+        $('#pace').val(serializePace(pace_sec_per_km, pace_unit)).trigger('change');
+      });
+
+      $('#maxhr').on('change', function() {
+        const maxhr_str = $(this).val();
+        maxhr = parseInt(maxhr_str, 10);
+        if (isNaN(maxhr)) {
+          console.error(`Failed to deserialize maxhr string: ${maxhr_str}`);
+          return;
+        }
+        setCookie('maxhr', maxhr_str, 365);
+        updatePace(pace_sec_per_km, pace_unit, maxhr);
+      });
+
+      $('table tbody tr td:first-child').on('click', () => {
+        setCookie("countdown", getCookie("countdown") == "false", 365);
+        swapCountdowns();
+      });
+
+      setInterval(function () {
+        updateHighlight(date);
+      }, 1000 * 60 * 60); // repeat every hour
+      
+      if (date != null) {
+        updateHighlight(date);
+      }
+      if (pace_sec_per_km !== null && maxhr !== null) {
+        updatePace(pace_sec_per_km, pace_unit, maxhr);
+      }
+    // });
   </script>
 </body>
 
