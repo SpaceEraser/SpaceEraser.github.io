@@ -10,55 +10,55 @@ hr_zones:
   tune-up: 100
   race: 100
 program:
-  - ["core & yoga", "-", "5w<br/>5x3w/1r<br/>5w", "core", "5w<br/>5x3w/1r<br/>5w", "-", "5w<br/>5x2.5w<br/>1.5r/5w"]
-  - ["core & yoga", "-", "4w<br/>5x2.5w/1.5r<br/>4w", "core", "4w<br/>5x2w/2r<br/>4w", "-", "4w<br/>3x2W/2R<br/>1x3w/6r<br/>4w"]
-  - ["core & yoga", "-", "4w<br/>6x2w/2r<br/>4w", "core", "4W<br/>6x1.5w/2.5r<br/>4W", "-", "4W<br/>2km<br/>4W"]
-  - ["core & yoga", "-", "4R<br/>6x1.5w/2.5r<br/>4W", "core", "4R<br/>6x1w/3r<br/>4W", "-", "4W<br/>3km<br/>4W"]
-  - ["core & yoga", "-", "5R<br/>4x1w/5r<br/>5W", "core", "5R<br/>4x1w/7r<br/>5W", "-", "4W<br/>4km<br/>4W"]
-  - ["core & yoga", "-", "5R<br/>5x1w/7r<br/>5W", "core", "5R<br/>3x1w/10r<br/>5W", "-", "5km"]
+  - ["Core & Yoga", "-", ["5w","5x3w/1r","5w"], "Core", ["5w","5x3w/1r","5w"], "-", ["5w","5x2.5w","1.5r/5w"]]
+  - ["Core & Yoga", "-", ["4w","5x2.5w/1.5r", "4w"], "Core", ["4w","5x2w/2r", "4w"], "-", ["4w","3x2W/2R","1x3w/6r","4w"]]
+  - ["Core & Yoga", "-", ["4w","6x2w/2r","4w"], "Core", ["4W","6x1.5w/2.5r","4W"], "-", ["4W","2km","4W"]]
+  - ["Core & Yoga", "-", ["4R","6x1.5w/2.5r","4W"], "Core", ["4R","6x1w/3r","4W"], "-", ["4W","3km","4W"]]
+  - ["Core & Yoga", "-", ["5R","4x1w/5r","5W"], "Core", ["5R","4x1w/7r","5W"], "-", ["4W","4km","4W"]]
+  - ["Core & Yoga", "-", ["5R","5x1w/7r","5W"], "Core", ["5R","3x1w/10r","5W"], "-", "5km"]
 
-  - ["yoga", "3km", "3km", "yoga", "3km", "-", "3km"]
-  - ["yoga", "3km", "3km", "yoga", "3km", "-", "4km"]
-  - ["yoga", "3km", "3km", "yoga", "4km", "-", "5km"]
-  - ["yoga", "2km", "2km", "yoga", "2km", "-", "3km"]
+  - ["Yoga", "3km", "3km", "Yoga", "3km", "-", "3km"]
+  - ["Yoga", "3km", "3km", "Yoga", "3km", "-", "4km"]
+  - ["Yoga", "3km", "3km", "Yoga", "4km", "-", "5km"]
+  - ["Yoga", "2km", "2km", "Yoga", "2km", "-", "3km"]
 
-  - ["core & yoga", "4km", "4km", "core", "3km", "-", "4km"]
-  - ["core & yoga", "4km", "4km", "core", "4km", "-", "5km"]
-  - ["core & yoga", "20:00 intervals", "5km", "core", "5km", "-", "6km"]
-  - ["core & yoga", "30:00 intervals", "6km", "core", "6km", "-", "7km"]
-  - ["core & yoga", "40:00 intervals", "7km", "core", "6km", "-", "8km"]
-  - ["core & yoga", "5km", "20:00 intervals", "core", "20:00 intervals", "-", "10km"]
+  - ["Core & Yoga", "4km", "4km", "Core", "3km", "-", "4km"]
+  - ["Core & Yoga", "4km", "4km", "Core", "4km", "-", "5km"]
+  - ["Core & Yoga", "20:00 intervals", "5km", "Core", "5km", "-", "6km"]
+  - ["Core & Yoga", "30:00 intervals", "6km", "Core", "6km", "-", "7km"]
+  - ["Core & Yoga", "40:00 intervals", "7km", "Core", "6km", "-", "8km"]
+  - ["Core & Yoga", "5km", "20:00 intervals", "Core", "20:00 intervals", "-", "10km"]
 
-  - ["yoga", "6km", "6km", "yoga", "6km", "-", "6km"]
-  - ["yoga", "6km", "6km", "yoga", "7km", "-", "8km"]
-  - ["yoga", "7km", "7km", "yoga", "8km", "-", "6km"]
-  - ["yoga", "5km", "5km", "yoga", "5km", "-", "5km"]
+  - ["Yoga", "6km", "6km", "Yoga", "6km", "-", "6km"]
+  - ["Yoga", "6km", "6km", "Yoga", "7km", "-", "8km"]
+  - ["Yoga", "7km", "7km", "Yoga", "8km", "-", "6km"]
+  - ["Yoga", "5km", "5km", "Yoga", "5km", "-", "5km"]
 
-  - ["-", "6km", "strength", "6km", "strength", 5km", "10km"]
-  - ["-", "6km", "strength", "6km", "strength", 5km", "8km"]
-  - ["-", "5km", "strength", "5km", "strength", 5km", "5km"]
+  - ["Yoga", "6km", "Strength A", "6km", "6km", "5km", ["tune-up", "10km"]]
+  - ["Yoga", "6km", "Strength A", "6km", "5km", "5km", "8km"]
+  - ["Yoga", "5km", "Strength A", "6km", "5km", "5km", "5km"]
 
-  - ["-", ["tempo","13km","50% at HMP"], "-", ["aerobic","14km"], "-", ["recovery","6km"], ["long","19km"]]
-  - ["-", ["aerobic","13km","strides"], "-", ["aerobic","16km"], "-", ["recovery","8km"], ["long-plus","21km","60% at MP"]]
-  - ["-", ["aerobic","16km"], ["recovery","6km"], ["tempo","13km","50% at HMP"], "-", ["recovery","6km"], ["long","23km"]]
-  - ["-", ["aerobic","13km","strides"], ["recovery"], ["aerobic","16km"], "-", ["recovery","6km"], ["long","24km"]]
-  - ["-", ["tempo","14km","50% at HMP"], ["recovery","8km"], ["aerobic","16km"], "-", ["recovery","8km"], ["long","26km","60% at MP"]]
-  - ["-", ["aerobic","13km","strides"], ["recovery","8km"], ["aerobic","13km"], "-", ["recovery","6km"], ["long","19km"]]
+  - ["Yoga", {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "aerobic", d: "14km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "19km"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, "-", {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "8km"}, {n: "long-plus", d: "21km", s: "60% at MP"}]
+  - ["Yoga", {n: "aerobic", d: "16km"}, {n: "recovery", d: "6km"}, {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "23km"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery"}, {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "24km"}]
+  - ["Yoga", {n: "tempo", d: "14km", s: "50% at HMP"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "8km"}, {n: "long", d: "26km", s: "60% at MP"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "13km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "19km"}]
 
-  - ["-", ["tempo","16km","50% at HMP"], ["recovery","6km"], ["long","18km"], "-", ["aerobic","11km","strides"], ["long","29km"]]
-  - ["-", ["recovery","11km","strides"], ["long","19km"], "-", ["tempo","16km","60% at HMP"], ["recovery","8km"], ["long","32km"]]
-  - ["-", ["recovery","10km"], ["long","23km"], ["recovery","10km"], "-", ["recovery","10km","strides"], ["long","26km","75% at MP"]]
-  - ["-", ["aerobic","13km","strides"], ["speed","13km","5x800m intervals"], ["recovery","8km"], "-", ["aerobic","13km","strides"], ["long","23km"]]
-  - ["-", ["recovery","11km","strides"], ["tempo","18km","60% at HMP"], "-", ["long","19km"], ["recovery","8km"], ["long","32km"]]
+  - ["Yoga", {n: "tempo", d: "16km", s: "50% at HMP"}, {n: "recovery", d: "6km"}, {n: "long", d: "18km"}, "-", {n: "aerobic", d: "11km", s: "strides"}, {n: "long", d: "29km"}]
+  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "long", d: "19km"}, "-", {n: "tempo", d: "16km", s: "60% at HMP"}, {n: "recovery", d: "8km"}, {n: "long", d: "32km"}]
+  - ["Yoga", {n: "recovery", d: "10km"}, {n: "long", d: "23km"}, {n: "recovery", d: "10km"}, "-", {n: "recovery", d: "10km", s: "strides"}, {n: "long", d: "26km", s: "75% at MP"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "speed", d: "13km", s: "5x800m intervals"}, {n: "recovery", d: "8km"}, "-", {n: "aerobic", d: "13km", s: "strides"}, {n: "long", d: "23km"}]
+  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "tempo", d: "18km", s: "60% at HMP"}, "-", {n: "long", d: "19km"}, {n: "recovery", d: "8km"}, {n: "long", d: "32km"}]
 
-  - ["-", ["speed","13km","5x600m intervals"], ["long","19km"], "-", ["recovery","8km","strides"], ["tune-up","21km"], ["long","27km"]]
-  - ["-", ["aerobic","13km"], ["speed","14km","5x1000m intervals"], "-", ["long","19km","strides"], ["recovery","8km"], ["long-plus","29km","75% at MP"]]
-  - ["-", ["speed","13km","5x600m intervals"], ["long","18km"], "-", ["recovery","6km","strides"], ["tune-up","21km"], ["long","27km"]]
-  - ["-", ["recovery","11km","strides"], ["speed","16km","5x1200m intervals"], "-", ["long","18km"], ["recovery","6km"], ["long","32km"]]
+  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "long", d: "19km"}, "-", {n: "recovery", d: "8km", s: "strides"}, {n: "tune-up", d: "21km"}, {n: "long", d: "27km"}]
+  - ["Yoga", {n: "aerobic", d: "13km"}, {n: "speed", d: "14km", s: "5x1000m intervals"}, "-", {n: "long", d: "19km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "long-plus", d: "29km", s: "75% at MP"}]
+  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "long", d: "18km"}, "-", {n: "recovery", d: "6km", s: "strides"}, {n: "tune-up", d: "21km"}, {n: "long", d: "27km"}]
+  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "speed", d: "16km", s: "5x1200m intervals"}, "-", {n: "long", d: "18km"}, {n: "recovery", d: "6km"}, {n: "long", d: "32km"}]
 
-  - ["-", ["speed","13km","5x600m intervals"], ["recovery","10km"], "-", ["recovery","6km"], ["tune-up","15km"], ["long","26km"]]
-  - ["-", ["aerobic","11km","strides"], ["speed","13km","3x1200m intervals"], "-", ["recovery","8km","strides"], "-", ["long","19km"]]
-  - ["-", ["recovery","10km"], ["aerobic","11km","25% at MP"], "-", ["recovery","8km","strides"], ["recovery","6km"], ["race","42.2km"]]
+  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "recovery", d: "10km"}, "-", {n: "recovery", d: "6km"}, {n: "tune-up", d: "15km"}, {n: "long", d: "26km"}]
+  - ["Yoga", {n: "aerobic", d: "11km", s: "strides"}, {n: "speed", d: "13km", s: "3x1200m intervals"}, "-", {n: "recovery", d: "8km", s: "strides"}, "-", {n: "long", d: "19km"}]
+  - ["Yoga", {n: "recovery", d: "10km"}, {n: "aerobic", d: "11km", s: "25% at MP"}, "-", {n: "recovery", d: "8km","strides"}, {n: "recovery", d: "6km"}, {n: "race", d: "42.2km"}]
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -205,14 +205,33 @@ program:
               <tr {%- for divider in page.program_dividers -%}{%- if divider == week_num %} style="border-bottom: solid 2px;"{%- endif -%}{%- endfor -%}>
                 <td>#{{ week_num }}</td>
                 {%- for day in week -%}
-                  {%- if day[0] -%}
-                    <td class="{{- day[0] -}}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day[0] %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
-                    {{- day[0] | capitalize -}}
-                    {%- if day[1] -%}<br/>{{- day[1] -}}{%- endif -%}
-                    {%- if day[2] -%}<br/><span class="fst-italic">{{- day[2] -}}</span>{%- endif -%}
+                  {%- if day.n -%}
+                    <td class="{{- day.n -}}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
+                    {{- day.n | capitalize -}}
+                    {%- if day.d -%}<br/><span data-distance="{{- day.d -}}">{{- day.d -}}</span>{%- endif -%}
+                    {%- if day.s -%}<br/><span class="fst-italic">{{- day.s -}}</span>{%- endif -%}
+
+                  {%- elsif day[0] -%}
+                    <td>
+                    {%- for d in day -%}
+                      {%- assign is_distance = d | end_with: "km" -%}
+                      {%- if is_distance -%}
+                        <span data-distance="{{- d -}}">{{- d -}}</span>
+                      {%- else -%}
+                        {{- d -}}
+                      {%- endif -%}
+
+                      {%- unless forloop.last -%}<br/>{%- endunless -%}
+                    {%- endfor -%}
+                  
                   {%- else -%}
                     <td>
-                    {{- day -}}
+                    {%- assign is_distance = day | end_with: "km" -%}
+                    {%- if is_distance -%}
+                      <span data-distance="{{- day -}}">{{- day -}}</span>
+                    {%- else -%}
+                      {{- day -}}
+                    {%- endif -%}
                   {%- endif -%}
                 </td>
                 {%- endfor -%}
@@ -278,6 +297,36 @@ program:
       </div>
     </div>
     <div class="row">
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="intervals-20">
+          <div class="card-body">
+            <h5 class="card-title">Strength A</h5>
+            <p class="card-text">Do each exercise below 5-10 reps &times; 2-3 sets each</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Stair step ups</li>
+            <li class="list-group-item">Reverse lunges w/ step through</li>
+            <li class="list-group-item">Cossack squats</li>
+            <li class="list-group-item">Bulgarian split squats</li>
+            <li class="list-group-item">Reverse lunges w/ step through</li>
+            <li class="list-group-item">One legged box squats</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="intervals-20">
+          <div class="card-body">
+            <h5 class="card-title">Strength B</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Hip drops</li>
+            <li class="list-group-item">One legged glute bridge</li>
+            <li class="list-group-item">One legged RDL</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-12">
         <pre>
           TODO: link to pace equivalency calculator for 5km (hard running) time
@@ -293,7 +342,7 @@ program:
       KmPerHour: 2,
       MiPerHour: 3,
     });
-    const KM_PER_MI = 1.60934;
+    const KM_PER_MI = 1.609344;
     const SEC_PER_HOUR = 60.0 * 60.0;
     const ConvertPace = {
       FromSecPerKm: 0,
@@ -311,6 +360,29 @@ program:
     ConvertPace[PaceUnit.MiPerHour] = {};
     ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
     ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
+
+    function deserializeDistance(str) {
+      const match = str.match(/(\d+(?:\.\d+)?)\s?(km|mi)/);
+      if (!match) {
+        return null;
+      }
+      const num = parseFloat(match[1]);
+      if (match[2] === "km") {
+        return num;
+      } else if (match[2] === "mi") {
+        return num * KM_PER_MI;
+      }
+
+      return null;
+    }
+
+    function serializeDistance(distance_in_km, pace_unit) {
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.KmPerHour) {
+        return `${round_to_decimal(distance_in_km, 1)}km`;
+      } else {
+        return `${round_to_decimal(distance_in_km / KM_PER_MI, 1)}mi`;
+      }
+    }
 
     function serializePace(sec_per_km, pace_unit) {
       if (!(pace_unit in Object.values(PaceUnit))) {
@@ -342,8 +414,8 @@ program:
 
     function displayPaceUnit(pace_unit) {
       const PrettyPaceUnit = {}
-      PrettyPaceUnit[PaceUnit.SecPerKm] = "/km";
-      PrettyPaceUnit[PaceUnit.SecPerMi] = "/mi";
+      PrettyPaceUnit[PaceUnit.SecPerKm] = "&#8288;/km";
+      PrettyPaceUnit[PaceUnit.SecPerMi] = "&#8288;/mi";
       PrettyPaceUnit[PaceUnit.KmPerHour] = "&nbsp;km/h";
       PrettyPaceUnit[PaceUnit.MiPerHour] = "&nbsp;mi/h";
       return PrettyPaceUnit[pace_unit];
@@ -396,24 +468,19 @@ program:
         return;
       }
 
-      for (const el of $("table tbody tr td")) {
+      for (const el of $("[data-distance]")) {
         const $el = $(el);
-        const pace_pct = parseFloat($el.data('pace-pct') || '75');
-        const text_nodes = $el.find(":not(iframe)").addBack().contents().filter((_i, el) => el.nodeType === 3);
-        for (const text_node of text_nodes) {
-          const text_match = text_node.nodeValue.match(/(\d+(?:\.\d+)?)km/);
-          if (!text_match)
-            continue;
-          const adjusted_pace_sec_per_km = pace_sec_per_km * (100.0 / pace_pct);
-          const time = parseFloat(text_match[1]) * adjusted_pace_sec_per_km;
-          let addon = `${serializeTime(Math.ceil(time))}, ${serializePace(Math.ceil(adjusted_pace_sec_per_km), pace_unit)}&#8288;${displayPaceUnit(pace_unit)}`;
-          if (maxhr) {
-            addon += `, ❤️&#8288;${Math.ceil(maxhr * (pace_pct / 100.0))}`;
-          }
-          
-          // TODO: this replaces the entire text node, not just the match
-          $(text_node).replaceWith(`${text_match[1]}km<span class="distance-addon"> (${addon})</span>`);
+        const pace_pct = parseFloat($el.parents("td").data('pace-pct') || '75');
+        const distance_in_km = deserializeDistance($el.data("distance"));
+        const adjusted_pace_sec_per_km = pace_sec_per_km * (100.0 / pace_pct);
+        const time = distance_in_km * adjusted_pace_sec_per_km;
+        let addon = `${serializeTime(Math.ceil(time))}, ${serializePace(Math.ceil(adjusted_pace_sec_per_km), pace_unit)}${displayPaceUnit(pace_unit)}`;
+        if (maxhr) {
+          addon += `, ❤️&#8288;${Math.ceil(maxhr * (pace_pct / 100.0))}`;
         }
+        
+        // TODO: this replaces the entire text node, not just the match
+        $el.html(`${serializeDistance(distance_in_km, pace_unit)}<span class="distance-addon"> (${addon})</span>`);
       }
     }
 

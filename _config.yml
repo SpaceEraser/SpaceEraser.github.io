@@ -34,9 +34,9 @@ theme: minima
 # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 domain: bence.me
 # the base hostname and protocol for your site, e.g. http://example.com
-url: https:/bence.me
+url: https://bence.me
 # place folder name if the site is served in a subfolder
-baseurl: 
+# baseurl:
 
 
 # Exclude from processing.
