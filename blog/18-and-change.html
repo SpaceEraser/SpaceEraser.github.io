@@ -34,9 +34,9 @@ program:
   - ["Yoga", {d: "7km"}, {d: "7km"}, "Yoga", {d: "8km"}, "-", {d: "6km"}]
   - ["Yoga", {d: "5km"}, {d: "5km"}, "Yoga", {d: "5km"}, "-", {d: "5km"}]
 
-  - ["Yoga", {d: "6km"}, "Strength", {d: "6km"}, {d: "6km"}, {d: "5km"}, ["Tune-up", "10km"]]
-  - ["Yoga", {d: "6km"}, "Strength", {d: "6km"}, {d: "5km"}, {d: "5km"}, {d: "8km"}]
-  - ["Yoga", {d: "5km"}, "Strength", {d: "6km"}, {d: "5km"}, {d: "5km"}, {d: "5km"}]
+  - ["Yoga", {n: "aerobic", d: "6km"}, "Strength", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "recovery", d: "5km"}, {n: "tune-up", d: "10km"}]
+  - ["Yoga", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength", {n: "recovery", d: "5km"}, {n: "aerobic", d: "8km"}]
+  - ["Yoga", {n: "aerobic", d: "5km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength", {n: "recovery", d: "5km"}, {n: "aerobic", d: "5km"}]
 
   - ["Yoga", {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "aerobic", d: "14km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "19km"}]
   - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, "-", {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "8km"}, {n: "long-plus", d: "21km", s: "60% at MP"}]
@@ -205,7 +205,7 @@ program:
               <tr {%- for divider in page.program_dividers -%}{%- if divider == week_num %} style="border-bottom: solid 2px;"{%- endif -%}{%- endfor -%}>
                 <td>#{{ week_num }}</td>
                 {%- for day in week -%}
-                  {%- if day.d -%}
+                  {%- if day.d or day.n or day.s -%}
                     <td class="{{- day.n -}}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
                     {%- if day.n -%}{{- day.n | capitalize -}}<br/>{%- endif -%}
                     {%- if day.d -%}<span data-distance="{{- day.d -}}">{{- day.d -}}</span><br/>{%- endif -%}
