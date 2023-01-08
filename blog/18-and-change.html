@@ -7,8 +7,8 @@ hr_zones:
   long-plus: 84
   tempo: 87
   speed: 94
-  tune-up: 100
-  race: 100
+  tune-up: 85
+  race: 85
 program:
   - ["Core & Yoga", "-", ["5w","5x3w/1r","5w"], "Core", ["5w","5x3w/1r","5w"], "-", ["5w","5x2.5w","1.5r/5w"]]
   - ["Core & Yoga", "-", ["4w","5x2.5w/1.5r", "4w"], "Core", ["4w","5x2w/2r", "4w"], "-", ["4w","3x2W/2R","1x3w/6r","4w"]]
@@ -34,31 +34,31 @@ program:
   - ["Yoga", {d: "7km"}, {d: "7km"}, "Yoga", {d: "8km"}, "-", {d: "6km"}]
   - ["Yoga", {d: "5km"}, {d: "5km"}, "Yoga", {d: "5km"}, "-", {d: "5km"}]
 
-  - ["Yoga", {n: "aerobic", d: "6km"}, "Strength", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "recovery", d: "5km"}, {n: "tune-up", d: "10km"}]
-  - ["Yoga", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength", {n: "recovery", d: "5km"}, {n: "aerobic", d: "8km"}]
-  - ["Yoga", {n: "aerobic", d: "5km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength", {n: "recovery", d: "5km"}, {n: "aerobic", d: "5km"}]
+  - ["Yoga", {n: "aerobic", d: "6km"}, "Strength A", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "recovery", d: "5km"}, {n: "tune-up", d: "10km", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength A", {n: "recovery", d: "5km"}, {n: "aerobic", d: "8km", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "5km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength A", {n: "recovery", d: "5km"}, {n: "aerobic", d: "5km", b: "Strength B"}]
 
-  - ["Yoga", {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "aerobic", d: "14km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "19km"}]
-  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, "-", {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "8km"}, {n: "long-plus", d: "21km", s: "60% at MP"}]
-  - ["Yoga", {n: "aerobic", d: "16km"}, {n: "recovery", d: "6km"}, {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "23km"}]
-  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery"}, {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "24km"}]
-  - ["Yoga", {n: "tempo", d: "14km", s: "50% at HMP"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "16km"}, "-", {n: "recovery", d: "8km"}, {n: "long", d: "26km", s: "60% at MP"}]
-  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "13km"}, "-", {n: "recovery", d: "6km"}, {n: "long", d: "19km"}]
+  - ["Yoga", {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "aerobic", d: "14km"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "19km", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, "-", {n: "aerobic", d: "16km"}, "Strength A", {n: "recovery", d: "8km"}, {n: "long-plus", d: "21km", s: "60% at MP", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "16km"}, {n: "recovery", d: "6km"}, {n: "tempo", d: "13km", s: "50% at HMP"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "23km", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "16km"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "24km", b: "Strength B"}]
+  - ["Yoga", {n: "tempo", d: "14km", s: "50% at HMP"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "16km"}, "Strength A", {n: "recovery", d: "8km"}, {n: "long", d: "26km", s: "60% at MP", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "aerobic", d: "13km"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "19km", b: "Strength B"}]
 
-  - ["Yoga", {n: "tempo", d: "16km", s: "50% at HMP"}, {n: "recovery", d: "6km"}, {n: "long", d: "18km"}, "-", {n: "aerobic", d: "11km", s: "strides"}, {n: "long", d: "29km"}]
-  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "long", d: "19km"}, "-", {n: "tempo", d: "16km", s: "60% at HMP"}, {n: "recovery", d: "8km"}, {n: "long", d: "32km"}]
-  - ["Yoga", {n: "recovery", d: "10km"}, {n: "long", d: "23km"}, {n: "recovery", d: "10km"}, "-", {n: "recovery", d: "10km", s: "strides"}, {n: "long", d: "26km", s: "75% at MP"}]
-  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "speed", d: "13km", s: "5x800m intervals"}, {n: "recovery", d: "8km"}, "-", {n: "aerobic", d: "13km", s: "strides"}, {n: "long", d: "23km"}]
-  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "tempo", d: "18km", s: "60% at HMP"}, "-", {n: "long", d: "19km"}, {n: "recovery", d: "8km"}, {n: "long", d: "32km"}]
+  - ["Yoga", {n: "tempo", d: "16km", s: "50% at HMP"}, {n: "recovery", d: "6km"}, {n: "long", d: "18km"}, "Strength A", {n: "aerobic", d: "11km", s: "strides"}, {n: "long", d: "29km", b: "Strength B"}]
+  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "long", d: "19km"}, "Strength A", {n: "tempo", d: "16km", s: "60% at HMP"}, {n: "recovery", d: "8km"}, {n: "long", d: "32km", b: "Strength B"}]
+  - ["Yoga", {n: "recovery", d: "10km"}, {n: "long", d: "23km"}, {n: "recovery", d: "10km"}, "Strength A", {n: "recovery", d: "10km", s: "strides"}, {n: "long", d: "26km", s: "75% at MP", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "speed", d: "13km", s: "5x800m intervals"}, {n: "recovery", d: "8km"}, "Strength A", {n: "aerobic", d: "13km", s: "strides"}, {n: "long", d: "23km", b: "Strength B"}]
+  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "tempo", d: "18km", s: "60% at HMP"}, "Strength A", {n: "long", d: "19km"}, {n: "recovery", d: "8km"}, {n: "long", d: "32km", b: "Strength B"}]
 
-  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "long", d: "19km"}, "-", {n: "recovery", d: "8km", s: "strides"}, {n: "tune-up", d: "21km"}, {n: "long", d: "27km"}]
-  - ["Yoga", {n: "aerobic", d: "13km"}, {n: "speed", d: "14km", s: "5x1000m intervals"}, "-", {n: "long", d: "19km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "long-plus", d: "29km", s: "75% at MP"}]
-  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "long", d: "18km"}, "-", {n: "recovery", d: "6km", s: "strides"}, {n: "tune-up", d: "21km"}, {n: "long", d: "27km"}]
-  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "speed", d: "16km", s: "5x1200m intervals"}, "-", {n: "long", d: "18km"}, {n: "recovery", d: "6km"}, {n: "long", d: "32km"}]
+  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "long", d: "19km"}, "Strength A", {n: "recovery", d: "8km", s: "strides"}, {n: "tune-up", d: "21km"}, {n: "long", d: "27km", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "13km"}, {n: "speed", d: "14km", s: "5x1000m intervals"}, "Strength A", {n: "long", d: "19km", s: "strides"}, {n: "recovery", d: "8km"}, {n: "long-plus", d: "29km", s: "75% at MP", b: "Strength B"}]
+  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "long", d: "18km"}, "Strength A", {n: "recovery", d: "6km", s: "strides"}, {n: "tune-up", d: "21km"}, {n: "long", d: "27km", b: "Strength B"}]
+  - ["Yoga", {n: "recovery", d: "11km", s: "strides"}, {n: "speed", d: "16km", s: "5x1200m intervals"}, "Strength A", {n: "long", d: "18km"}, {n: "recovery", d: "6km"}, {n: "long", d: "32km", b: "Strength B"}]
 
-  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "recovery", d: "10km"}, "-", {n: "recovery", d: "6km"}, {n: "tune-up", d: "15km"}, {n: "long", d: "26km"}]
-  - ["Yoga", {n: "aerobic", d: "11km", s: "strides"}, {n: "speed", d: "13km", s: "3x1200m intervals"}, "-", {n: "recovery", d: "8km", s: "strides"}, "-", {n: "long", d: "19km"}]
-  - ["Yoga", {n: "recovery", d: "10km"}, {n: "aerobic", d: "11km", s: "25% at MP"}, "-", {n: "recovery", d: "8km","strides"}, {n: "recovery", d: "6km"}, {n: "race", d: "42.2km"}]
+  - ["Yoga", {n: "speed", d: "13km", s: "5x600m intervals"}, {n: "recovery", d: "10km"}, "Strength A", {n: "recovery", d: "6km"}, {n: "tune-up", d: "15km"}, {n: "long", d: "26km", b: "Strength B"}]
+  - ["Yoga", {n: "aerobic", d: "11km", s: "strides"}, {n: "speed", d: "13km", s: "3x1200m intervals"}, "Strength B", {n: "recovery", d: "8km", s: "strides"}, "-", {n: "long", d: "19km", b: "Strength B"}]
+  - ["Yoga", {n: "recovery", d: "10km"}, {n: "aerobic", d: "11km", s: "25% at MP"}, "Strength B", {n: "recovery", d: "8km","strides"}, {n: "recovery", d: "6km"}, {n: "race", d: "42.2km"}]
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -207,7 +207,8 @@ program:
                 {%- for day in week -%}
                   {%- if day.d or day.n or day.s -%}
                     <td class="{{- day.n -}}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
-                    {%- if day.n -%}{{- day.n | capitalize -}}<br/>{%- endif -%}
+                    {%- if day.b -%}<span class="fst-italic fs-6">{{- day.b -}}</span><br />{%- endif -%}
+                    {%- if day.n -%}<span class="fw-bold">{{- day.n | capitalize -}}</span><br/>{%- endif -%}
                     {%- if day.d -%}<span data-distance="{{- day.d -}}">{{- day.d -}}</span><br/>{%- endif -%}
                     {%- if day.s -%}<span class="fst-italic">{{- day.s -}}</span>{%- endif -%}
 
@@ -289,7 +290,7 @@ program:
       <div class="col-lg-3 col-md-6 mb-2">
         <div class="card" id="intervals-20">
           <div class="card-body">
-            <h5 class="card-title">Strength</h5>
+            <h5 class="card-title">Strength A</h5>
             <p class="card-text">Do each exercise below 5-10 reps &times; 2-3 sets each</p>
           </div>
           <ul class="list-group list-group-flush">
@@ -299,6 +300,21 @@ program:
             <li class="list-group-item">Bulgarian split squats</li>
             <li class="list-group-item">Reverse lunges w/ step through</li>
             <li class="list-group-item">One legged box squats</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="intervals-20">
+          <div class="card-body">
+            <h5 class="card-title">Strength B</h5>
+            <p class="card-text">Do in a circuit, 1 min per exercise (30s per leg if applicable) with 30s rest. Repeat 2-4 times.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Squat to single leg follow through</li>
+            <li class="list-group-item">Single leg RDL</li>
+            <li class="list-group-item">Bent over step back</li>
+            <li class="list-group-item">Single leg bent over kettle bell switch</li>
+            <li class="list-group-item">Ski jump</li>
           </ul>
         </div>
       </div>
