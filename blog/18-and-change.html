@@ -203,7 +203,7 @@ program:
             {%- assign week_num = 1 -%}
             {% for week in page.program -%}
               <tr {%- for divider in page.program_dividers -%}{%- if divider == week_num %} style="border-bottom: solid 2px;"{%- endif -%}{%- endfor -%}>
-                <td>#{{ week_num }}</td>
+                <td><div class="week-num">#{{ week_num }}</div></td>
                 {%- for day in week -%}
                   {%- if day.d or day.n or day.s -%}
                     <td class="{{- day.n -}}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
@@ -441,7 +441,7 @@ program:
     function swapCountdowns() {
       const program_num_weeks = $("table tbody tr").length;
 
-      for (const el of $('table tbody tr td:first-child')) {
+      for (const el of $('table tbody tr td .week-num')) {
         const $el = $(el);
         const text_match = $el.text().match(/(-|#)?(\d+)/);
         const num = parseInt(text_match[2], 10);
@@ -477,12 +477,13 @@ program:
       }
     }
 
-    function updateHighlight(date) {
+    function updateDates(date) {
       $(".today, .this-week").removeClass("today").removeClass("this-week");
+      $(".week-date").remove();
       
       if (!(date instanceof Date)) {
         return;
-      } 
+      }
 
       const now = new Date();
       const program_num_weeks = $("table tbody tr").length;
@@ -491,6 +492,16 @@ program:
       const elapsed_days = (now.getTime() - program_start_ts) / (1000 * 60 * 60 * 24);
       const elapsed_weeks = Math.ceil(elapsed_days / 7);
       const elapsed_dow = Math.floor(elapsed_days) % 7;
+
+      let i = 0;
+      for (const el of $('table tbody tr td:first-child')) {
+        const $el = $(el);
+        const current_monday = addDays(new Date(program_start_ts), 7 * i);
+        const month = `${current_monday.getMonth() + 1}`;
+        const day = `${current_monday.getDate()}`;
+        $el.append(`<div class="week-date">${month}/${day}</div>`);
+        i += 1;
+      }
 
       if (elapsed_days < 0 || elapsed_weeks > program_num_weeks) {
         return;
@@ -515,8 +526,11 @@ program:
     }
 
     function deserializeDate(str) {
-      const [year, month, date] = str.split("-");
-      return new Date(year, month - 1, date);
+      const [year, month, day] = str.split("-");
+      if (!year || !month || !day) {
+        return null;
+      } 
+      return new Date(year, month - 1, day);
     }
 
     function setCookie(cname, cvalue, exdays) {
@@ -549,13 +563,18 @@ program:
       const pace_cookie = getCookie("pace");
       const pace_unit_cookie = getCookie("pace_unit");
       const maxhr_cookie = getCookie("maxhr");
+      const countdown_cookie = getCookie("countdown");
       let date = null;
       let pace_sec_per_km = null;
       let pace_unit = 0;
       let maxhr = null;
+      let countdown = false;
 
-      if (getCookie("countdown") === "true") {
-        swapCountdowns();
+      if (countdown_cookie) {
+        countdown = countdown_cookie === "true";
+        if (countdown) {
+          swapCountdowns();
+        }
       }
 
       if (date_cookie) {
@@ -582,7 +601,7 @@ program:
         const date_str = $(this).val();
         date = deserializeDate(date_str);
         setCookie('date', date_str, 365);
-        updateHighlight(date);
+        updateDates(date);
       });
 
       $('#pace').on('change', function() {
@@ -624,16 +643,17 @@ program:
       });
 
       $('table tbody tr td:first-child').on('click', () => {
-        setCookie("countdown", getCookie("countdown") == "false", 365);
+        countdown = !countdown;
+        setCookie("countdown", countdown, 365);
         swapCountdowns();
       });
 
       setInterval(function () {
-        updateHighlight(date);
+        updateDates(date);
       }, 1000 * 60 * 60); // repeat every hour
       
       if (date != null) {
-        updateHighlight(date);
+        updateDates(date);
       }
       if (pace_sec_per_km !== null && maxhr !== null) {
         updatePace(pace_sec_per_km, pace_unit, maxhr);
