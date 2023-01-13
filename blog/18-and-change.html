@@ -9,6 +9,10 @@ hr_zones:
   speed: 94
   tune-up: 85
   race: 85
+links:
+  "Strength A": "strength-a"
+  "Strength B": "strength-b"
+  "Core": "core"
 program:
   - ["Core & Yoga", "-", ["5w","5x3w/1r","5w"], "Core", ["5w","5x3w/1r","5w"], "-", ["5w","5x2.5w","1.5r/5w"]]
   - ["Core & Yoga", "-", ["4w","5x2.5w/1.5r", "4w"], "Core", ["4w","5x2w/2r", "4w"], "-", ["4w","3x2W/2R","1x3w/6r","4w"]]
@@ -83,13 +87,16 @@ program:
     table tbody tr td:first-child {
       cursor: pointer;
     }
-    tr.this-week {
-      border-top: black 3px dotted;
-      border-bottom: black 3px dotted;
+    tr.this-week td.day-of-week {
+      border: black 4px dashed;
     }
-    td.today {
-      border-left: black 3px dotted;
-      border-right: black 3px dotted;
+    tr.this-week {
+      border-top: gray 3px double;
+      border-bottom: gray 3px double;
+    }
+    td.day-of-week {
+      border-left: gray 3px double;
+      border-right: gray 3px double;
     }
     td.recovery {
       background-color: #CFE2F3;
@@ -205,12 +212,22 @@ program:
               <tr {%- for divider in page.program_dividers -%}{%- if divider == week_num %} style="border-bottom: solid 2px;"{%- endif -%}{%- endfor -%}>
                 <td><div class="week-num">#{{ week_num }}</div></td>
                 {%- for day in week -%}
+                  {%- assign link_to = false -%}
                   {%- if day.d or day.n or day.s -%}
-                    <td class="{{- day.n -}}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
-                    {%- if day.b -%}<span class="fst-italic fs-6">{{- day.b -}}</span><br />{%- endif -%}
-                    {%- if day.n -%}<span class="fw-bold">{{- day.n | capitalize -}}</span><br/>{%- endif -%}
-                    {%- if day.d -%}<span data-distance="{{- day.d -}}">{{- day.d -}}</span><br/>{%- endif -%}
-                    {%- if day.s -%}<span class="fst-italic">{{- day.s -}}</span>{%- endif -%}
+                    {%- for link in page.links -%}{%- if link[0] == day.b %}{%- assign link_to = link[1] -%}{%- endif -%}{%- endfor -%}
+
+                    <td class="{{ day.n }}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
+                    {%- if day.b -%}
+                      {%- if link_to -%}
+                        <a class="fst-italic" href="#{{ link_to }}">{{ day.b }}</a>
+                      {%- else -%}
+                        <span class="fst-italic">{{ day.b }}</span>
+                      {%- endif -%}
+                      <br/>
+                    {%- endif -%}
+                    {%- if day.n -%}<span class="fw-bold">{{ day.n | capitalize }}</span><br/>{%- endif -%}
+                    {%- if day.d -%}<span data-distance="{{ day.d }}">{{ day.d }}</span><br/>{%- endif -%}
+                    {%- if day.s -%}<span class="fst-italic fs-6">{{ day.s }}</span><br />{%- endif -%}
 
                   {%- elsif day[0] -%}
                     <td>
@@ -221,7 +238,12 @@ program:
                   
                   {%- else -%}
                     <td>
-                    {{- day -}}
+                    {%- for link in page.links -%}{%- if link[0] == day %}{%- assign link_to = link[1] -%}{%- endif -%}{%- endfor -%}
+                    {%- if link_to -%}
+                      <a href="#{{ link_to }}">{{ day }}</a>
+                    {%- else -%}
+                      {{- day -}}
+                    {%- endif -%}
                   {%- endif -%}
                 </td>
                 {%- endfor -%}
@@ -288,26 +310,27 @@ program:
     </div>
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-2">
-        <div class="card" id="intervals-20">
+        <div class="card" id="strength-a">
           <div class="card-body">
             <h5 class="card-title">Strength A</h5>
             <p class="card-text">Do each exercise below 5-10 reps &times; 2-3 sets each</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Stair step ups</li>
-            <li class="list-group-item">Reverse lunges w/ step through</li>
-            <li class="list-group-item">Cossack squats</li>
-            <li class="list-group-item">Bulgarian split squats</li>
-            <li class="list-group-item">Reverse lunges w/ step through</li>
-            <li class="list-group-item">One legged box squats</li>
+            <li class="list-group-item">Stair step up</li>
+            <li class="list-group-item">High knee</li>
+            <li class="list-group-item">Cossack squat</li>
+            <li class="list-group-item">Reverse lunge w/ high knee</li>
+            <li class="list-group-item">One legged box squat</li>
+            <li class="list-group-item">Bulgarian split squat</li>
+            <li class="list-group-item">Ankle flex (dorsiflexion)</li>
           </ul>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 mb-2">
-        <div class="card" id="intervals-20">
+        <div class="card" id="strength-b">
           <div class="card-body">
             <h5 class="card-title">Strength B</h5>
-            <p class="card-text">Do in a circuit, 1 min per exercise (30s per leg if applicable) with 30s rest. Repeat 2-4 times.</p>
+            <p class="card-text">Do in a circuit, 1 min per exercise (30s per leg if applicable) with 30s rest, repeat 2-4 times.</p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Squat to single leg follow through</li>
@@ -315,10 +338,26 @@ program:
             <li class="list-group-item">Bent over step back</li>
             <li class="list-group-item">Single leg bent over kettle bell switch</li>
             <li class="list-group-item">Ski jump</li>
+            <li class="list-group-item">Elevated glute bridge</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="core">
+          <div class="card-body">
+            <h5 class="card-title">Core</h5>
+            <p class="card-text">This is the McGill Big 3 with a clamshell.<br/>Do in a circuit, 10-15s per exercise, with no rest, repeat 3 times.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Modified curl up</li>
+            <li class="list-group-item">Side Bridge</li>
+            <li class="list-group-item">Bird dog</li>
+            <li class="list-group-item">Side bridge clamshell/lateral leg raise</li>
           </ul>
         </div>
       </div>
     </div>
+  </div>
     <div class="row">
       <div class="col-12">
         <pre>
@@ -337,22 +376,27 @@ program:
     });
     const KM_PER_MI = 1.609344;
     const SEC_PER_HOUR = 60.0 * 60.0;
-    const ConvertPace = {
-      FromSecPerKm: 0,
-      ToSecPerKm: 1,
-    };
-    ConvertPace[PaceUnit.SecPerKm] = {};
-    ConvertPace[PaceUnit.SecPerKm][ConvertPace.FromSecPerKm] = (p) => p;
-    ConvertPace[PaceUnit.SecPerKm][ConvertPace.ToSecPerKm] = (p) => p;
-    ConvertPace[PaceUnit.SecPerMi] = {};
-    ConvertPace[PaceUnit.SecPerMi][ConvertPace.FromSecPerKm] = (p) => p * KM_PER_MI;
-    ConvertPace[PaceUnit.SecPerMi][ConvertPace.ToSecPerKm] = (p) => p / KM_PER_MI;
-    ConvertPace[PaceUnit.KmPerHour] = {};
-    ConvertPace[PaceUnit.KmPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / p;
-    ConvertPace[PaceUnit.KmPerHour][ConvertPace.ToSecPerKm] = (p) => SEC_PER_HOUR / p;
-    ConvertPace[PaceUnit.MiPerHour] = {};
-    ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
-    ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
+      const ConvertPace = {
+        FromSecPerKm: 0,
+        ToSecPerKm: 1,
+      };
+      ConvertPace[PaceUnit.SecPerKm] = {};
+      ConvertPace[PaceUnit.SecPerKm][ConvertPace.FromSecPerKm] = (p) => p;
+      ConvertPace[PaceUnit.SecPerKm][ConvertPace.ToSecPerKm] = (p) => p;
+      ConvertPace[PaceUnit.SecPerMi] = {};
+      ConvertPace[PaceUnit.SecPerMi][ConvertPace.FromSecPerKm] = (p) => p * KM_PER_MI;
+      ConvertPace[PaceUnit.SecPerMi][ConvertPace.ToSecPerKm] = (p) => p / KM_PER_MI;
+      ConvertPace[PaceUnit.KmPerHour] = {};
+      ConvertPace[PaceUnit.KmPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / p;
+      ConvertPace[PaceUnit.KmPerHour][ConvertPace.ToSecPerKm] = (p) => SEC_PER_HOUR / p;
+      ConvertPace[PaceUnit.MiPerHour] = {};
+      ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
+      ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
+
+    function convert_pace(from_unit, to_unit, v) {
+      const sec_per_km = ConvertPace[from_unit][ConvertPace.ToSecPerKm](v);
+      return ConvertPace[to_unit][ConvertPace.FromSecPerKm](sec_per_km);
+    }
 
     function deserializeDistance(str) {
       const match = str.match(/(\d+(?:\.\d+)?)\s?(km|mi)/);
@@ -478,7 +522,7 @@ program:
     }
 
     function updateDates(date) {
-      $(".today, .this-week").removeClass("today").removeClass("this-week");
+      $(".day-of-week, .this-week").removeClass(["day-of-week", "this-week"]);
       $(".week-date").remove();
       
       if (!(date instanceof Date)) {
@@ -507,8 +551,8 @@ program:
         return;
       }
 
-      const $this_week = $(`table tbody tr:nth-child(${elapsed_weeks})`).addClass("this-week");
-      $this_week.find(`td:nth-child(${elapsed_dow+2})`).addClass("today");
+      $(`table tbody tr:nth-child(${elapsed_weeks})`).addClass("this-week");
+      $(`table tbody tr td:nth-child(${elapsed_dow+2})`).addClass("day-of-week");
     }
 
     function round_to_decimal(v, d) {
