@@ -7,8 +7,17 @@ hr_zones:
   long-plus: 84
   tempo: 87
   speed: 94
-  tune-up: 85
-  race: 85
+  tune-up: 90
+  race: 90
+pace_zones:
+  recovery: 70
+  aerobic: 75
+  long: 80
+  long-plus: 84
+  tempo: 105
+  speed: 110
+  tune-up: 100
+  race: 100
 links:
   "Strength A": "strength-a"
   "Strength B": "strength-b"
@@ -42,7 +51,7 @@ program:
   - ["Yoga", {n: "aerobic", d: "6km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength A", {n: "recovery", d: "5km"}, {n: "aerobic", d: "8km", b: "Strength B"}]
   - ["Yoga", {n: "aerobic", d: "5km"}, {n: "aerobic", d: "6km"}, {n: "aerobic", d: "5km"}, "Strength A", {n: "recovery", d: "5km"}, {n: "long", d: "21.1km", b: "Strength B"}]
 
-  - ["Yoga", {n: "tempo", d: "13km", s: "50% at HMP"}, "-", {n: "aerobic", d: "14km"}, "Strength A", {n: "recovery", d: "6km", b: "Strength B"}, {n: "long", d: "19km"}]
+  - ["Yoga", {n: "tempo", d: "13km", s: "50% at HMP"}, "Strength B", {n: "aerobic", d: "14km"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "19km"}]
   - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, "Strength B", {n: "aerobic", d: "16km"}, "Strength A", {n: "recovery", d: "8km"}, {n: "long-plus", d: "21km", s: "60% at MP"}]
   - ["Yoga", {n: "aerobic", d: "16km"}, {n: "recovery", d: "6km", b: "Strength B"}, {n: "tempo", d: "13km", s: "50% at HMP"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "23km"}]
   - ["Yoga", {n: "aerobic", d: "13km", s: "strides"}, {n: "recovery", d: "8km", b: "Strength B"}, {n: "aerobic", d: "16km"}, "Strength A", {n: "recovery", d: "6km"}, {n: "long", d: "24km"}]
@@ -138,11 +147,11 @@ program:
     </div>
     <div class="row">
       <div class="col-12">
-        Non-negotiables:
+        Strive to:
         <ol>
-          <li>STRETCH AFTER EVERY SESSION</li>
-          <li>DON'T NEGLECT STRENGTH AND CONDITIONING</li>
-          <li>RESPECT THE REST & RECOVERY</li>
+          <li>Do core every day</li>
+          <li>Warm-up before runs</li>
+          <li>Stretch after exercise</li>
         </ol>
       </div>
     </div>
@@ -216,7 +225,7 @@ program:
                   {%- if day.d or day.n or day.s -%}
                     {%- for link in page.links -%}{%- if link[0] == day.b %}{%- assign link_to = link[1] -%}{%- endif -%}{%- endfor -%}
 
-                    <td class="{{ day.n }}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-pace-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%}>
+                    <td class="{{ day.n }}" {%- for hrz in page.hr_zones -%}{%- if hrz[0] == day.n %} data-hr-pct="{{- hrz[1] -}}"{%- endif -%}{%- endfor -%} {%- for pcz in page.pace_zones -%}{%- if pcz[0] == day.n %} data-pace-pct="{{- pcz[1] -}}"{%- endif -%}{%- endfor -%}>
                     {%- if day.b -%}
                       {%- if link_to -%}
                         <a class="fst-italic" href="#{{ link_to }}">{{ day.b }}</a>
@@ -507,13 +516,14 @@ program:
 
       for (const el of $("[data-distance]")) {
         const $el = $(el);
+        const hr_pct = parseFloat($el.parents("td").data('hr-pct') || '75');
         const pace_pct = parseFloat($el.parents("td").data('pace-pct') || '75');
         const distance_in_km = deserializeDistance($el.data("distance"));
         const adjusted_pace_sec_per_km = pace_sec_per_km * (100.0 / pace_pct);
         const time = distance_in_km * adjusted_pace_sec_per_km;
         let addon = `${serializeTime(Math.ceil(time))}, ${serializePace(Math.ceil(adjusted_pace_sec_per_km), pace_unit)}${displayPaceUnit(pace_unit)}`;
         if (maxhr) {
-          addon += `, ❤️&#8288;${Math.ceil(maxhr * (pace_pct / 100.0))}`;
+          addon += `, ❤️&#8288;${Math.ceil(maxhr * (hr_pct / 100.0))}`;
         }
         
         // TODO: this replaces the entire text node, not just the match
