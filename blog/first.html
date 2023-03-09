@@ -492,8 +492,7 @@ program:
       let num;
       if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
         num = deserializeTime(str);
-      }
-      else {
+      } else {
         num = parseFloat(str);
       }
       return ConvertPace[pace_unit][ConvertPace.ToSecPerKm](num)
@@ -705,7 +704,7 @@ program:
       const now = new Date();
       const program_num_weeks = $("table tbody tr").length;
       const next_monday_after_date = addDays(date, 7 - mod(date.getDay()-1, 7));
-      const program_start_ts = next_monday_after_date.getTime() - (program_num_weeks * 1000 * 60 * 60 * 24 * 7);
+      const program_start_ts = addDays(next_monday_after_date, -program_num_weeks * 7);
       const elapsed_days = (now.getTime() - program_start_ts) / (1000 * 60 * 60 * 24);
       const elapsed_weeks = Math.ceil(elapsed_days / 7);
       const elapsed_dow = Math.floor(elapsed_days) % 7;
