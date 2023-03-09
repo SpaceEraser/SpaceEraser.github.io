@@ -1,0 +1,869 @@
+---
+program_dividers: [5, 9, 13]
+links:
+  "strength": "strength"
+  "core": "core"
+program:
+  - ["-", "x-train", [{r: 3, d: "1600m", ri: "400m"}], "strength", {s: "3km", d: "3km", e: "3km", n: "short-tempo"}, "x-train", {d: "13km", n: "long", o: 19}]
+  - ["-", "x-train", [{r: 4, d: "800m", ri: "2min"}], "strength", {s: "1.5km", d: "8km", e: "1.km", n: "mid-tempo"}, "x-train", {d: "14km", n: "long", o: 28}]
+  - ["-", "x-train", [{r: 1, d: "1200m", ri: "200m"}, {r: 1, d: "1000m", ri: "200m"}, {r: 1, d: "800m", ri: "200m"}, {r: 1, d: "600m", ri: "200m"}, {r: 1, d: "400m", ri: "200m"}], "strength", {s: "1.5km", d: "8km", e: "1.km", n: "long-tempo"}, "x-train", {d: "16km", n: "long", o: 28}]
+  - ["-", "x-train", [{r: 5, d: "1000m", ri: "400m"}], "strength", {s: "1.5km", d: "7km", e: "1.km", n: "mid-tempo"}, "x-train", {d: "18km", n: "long", o: 28}]
+  
+  - ["-", "x-train", [{r: 3, d: "1600m", ri: "400m"}], "strength", {s: "3km", d: "5km", e: "1.5km", n: "mid-tempo"}, "x-train", {d: "19km", n: "long", o: 28}]
+  - ["-", "x-train", [{r: 2, d: "1200m", ri: "2min"}, {r: 4, d: "800m", ri: "2min"}]  , "strength", {s: "1.5km", d: "8km", e: "1.5km", n: "mid-tempo"}, "x-train", {d: "22km", n: "long", o: 28}]
+  - ["-", "x-train", [{r: 6, d: "800m", ri: "90sec"}], "strength", {s: "1.5km", d: "10km", e: "1.5km", n: "long-tempo"}, "x-train", {d: "16km", n: "long", o: 9}]
+  - ["-", "x-train", [{r: 6, d: "400m", ri: "90sec"}, {r: 6, d: "400m", ri: "90sec"}], "strength", {s: "3km", d: "5km", e: "1.5km", n: "long-tempo"}, "x-train", {d: "24km", n: "long", o: 19}]
+  
+  - ["-", "x-train", [{r: 2, d: "1600m", ri: "60sec"}, {r: 2, d: "800m", ri: "60sec"}], "strength", {s: "1.5km", d: "7km", e: "1.5km", n: "short-tempo"}, "x-train", {d: "26km", n: "long", o: 19}]
+  - ["-", "x-train", [{r: 4, d: "1200m", ri: "2min"}], "strength", {d: "16km", n: "long"}, "x-train", {d: "19km", n: "long", o: 12}]
+  - ["-", "x-train", [{r: 1, d: "1000m", ri: "400m"}, {r: 1, d: "2000m", ri: "400m"}, {r: 1, d: "1000m", ri: "400m"}, {r: 1, d: "1000m", ri: "400m"}], "strength", {s: "1.5km", d: "13km", e: "1.5km", n: "long-tempo"}, "x-train", {d: "29km", n: "long", o: 28}]
+  - ["-", "x-train", [{r: 3, d: "1600m", ri: "400m"}], "strength", {d: "16km", n: "long"}, "x-train", {d: "21km", n: "long", o: 9}]
+  
+  - ["-", "x-train", [{r: 10, d: "400m", ri: "400m"}], "strength", {s: "1.5km", d: "8km", e: "1.5km", n: "mid-tempo"}, "x-train", {d: "32km", n: "long", o: 19}]
+  - ["-", "x-train", [{r: 8, d: "800m", ri: "90sec"}], "strength", {s: "1.5km", d: "8km", e: "1,5km", n: "mid-tempo"}, "x-train", {d: "21km", n: "long"}]
+  - ["-", "x-train", [{r: 5, d: "1000m", ri: "400m"}], "strength", {s: "3km", d: "5km", e: "1.5km", n: "short-tempo"}, "x-train", {d: "13km", n: "long"}]
+  - ["-", "x-train", [{r: 6, d: "400m", ri: "400m"}], "strength", {s: "1.5km", d: "5km", e: "1.5km", n: "long"}, "x-train", {d: "42.2km", n: "marathon"}]
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    table thead tr:nth-child(1) {
+      background: white;
+      position: sticky;
+      top: 0;
+    }
+    table tbody tr td {
+      vertical-align: middle;
+    }
+    table tbody tr td:first-child {
+      cursor: pointer;
+    }
+    tr.this-week td.day-of-week {
+      border: black 4px dashed;
+    }
+    tr.this-week {
+      border-top: gray 3px double;
+      border-bottom: gray 3px double;
+    }
+    td.day-of-week {
+      border-left: gray 3px double;
+      border-right: gray 3px double;
+    }
+    td.x-train {
+      background-color: #cfebf3;
+    }
+    td.strength {
+      background-color: #FFF2CC;
+    }
+    td.long {
+      background-color: #D9D2E9;
+    }
+    td.short-tempo {
+      background-color: #dd9f92
+    }
+    td.mid-tempo {
+      background-color: #E6B8AF;
+    }
+    td.long-tempo {
+      background-color: #edcbc5
+    }
+    td.repeats{
+      background-color: #dc9b8f
+    }
+    td.marathon {
+      background-color: #D5A6BD;
+    }
+  </style>
+
+  <title>FIRST</title>
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="container-md mb-3">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="mt-2">FIRST</h1>
+        <h3 class="mt-2">Furman Institute of Running and Training</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        Strive to:
+        <ol>
+          <li>Do core every day</li>
+          <li>Warm-up before runs</li>
+          <li>Stretch after exercise</li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-xs-12 mb-2">
+        <form action="javascript:void(0);" class="">
+          <div class="form-group d-flex">
+            <label for="date" class="col-form-label text-end me-2">Race&nbsp;Date (week&nbsp;of)</label>
+            <div class="flex-grow-1">
+              <input id="date" name="date" type="date" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-4 col-md-6 col-xs-12 mb-2">
+        <form action="javascript:void(0);" class="">
+          <div class="form-group d-flex">
+            <label for="pace" class="col-form-label text-end me-2">5km&nbsp;Pace</label>
+            <div class="flex-grow-1">
+              <div class="input-group">
+                <input id="pace" name="pace" type="pace" class="form-control">
+                <select name="pace-unit" id="pace-unit" class="selectpicker form-control" data-live-search="true">
+                  <option value="SecPerKm">/km</option>
+                  <option value="SecPerMi">/mi</option>
+                  <option value="KmPerHour">km/h</option>
+                  <option value="MiPerHour">mi/h</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row d-none">
+      <div class="col-12">
+        Target marathon: <span class="target-marathon-time"></span>
+      </div>
+    </div>
+    <div class="row d-none">
+      <div class="col-12">
+        Target half-marathon: <span class="target-halfmarathon-time"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered table-sm text-center mt-4"
+          data-toggle="table" data-sticky-header="true">
+          <thead>
+            <tr>
+              <th scope="col">Week</th>
+              <th scope="col">Monday</th>
+              <th scope="col">Tuesday</th>
+              <th scope="col">Wednesday</th>
+              <th scope="col">Thursday</th>
+              <th scope="col">Friday</th>
+              <th scope="col">Saturday</th>
+              <th scope="col">Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- assign week_num = 1 -%}
+            {% for week in page.program -%}
+              <tr {%- for divider in page.program_dividers -%}{%- if divider == week_num %} style="border-bottom: solid 2px;"{%- endif -%}{%- endfor -%}>
+                <td><div class="week-num">#{{ week_num }}</div></td>
+                
+                {%- for day in week -%}
+
+                  {%- if day.r or day.d or day.n -%}
+
+                    {%- if day.n == "long" -%}
+                      <td class="long" {%- if day.o -%} data-mp-offset="{{- day.o -}}" {%- endif -%}>
+                    {%- elsif day.n == "mid-tempo" or day.n == "long-tempo" or day.n == "short-tempo" -%}
+                      <td class="{{- day.n -}}">
+                    {%- elsif day.n == "marathon" -%}
+                      <td class="marathon">
+                    {%- else -%}
+                      <td>
+                    {%- endif -%}
+
+                    {%- if day.n -%}
+
+                      {%- if day.n == "short-tempo" or day.n == "mid-tempo" or day.n == "long-tempo" -%}
+                        <span class="fw-bold day-type">Tempo</span><br />
+                      {%- elsif day.n == "long" -%}
+                        <span class="fw-bold day-type">MP{%- if day.o -%}<sup class="mp-offset">+{{day.o -}}{%- endif -%}</sup></span><br/>
+                      {%- else -%}
+                        <span class="fw-bold day-type">{{- day.n | capitalize -}}</span><br/>
+                      {%- endif -%}
+                      <span class="day-distance">
+                        {%- if day.s -%}<span class="part-distance" data-distance="{{ day.s }}">{{ day.s }}</span> + {% endif -%}
+                        <span class="part-distance" data-distance="{{ day.d }}">{{ day.d }}</span>
+                        {%- if day.e %} + <span class="part-distance" data-distance="{{ day.e }}">{{ day.e }}</span>{%- endif -%}
+                      </span>
+
+                    {%- else -%}
+
+                      <span class="fw-bold">{{- day -}}</span>
+
+                    {%- endif -%}
+                  
+                  {%- elsif day[0] -%}
+
+                    <td class="repeats">
+                    <span class="fw-bold day-type">Repeats</span><br/>
+                  
+                    <span class="day-distance">
+
+                    {%- assign single_homogenous = true -%}
+                    {%- for day in day -%}
+                      {%- if day.r != 1 -%}
+                        {%- assign single_homogenous = false -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- if single_homogenous -%}
+                      {%- for day in day -%}<span class="part-distance" data-distance="{{- day.d -}}">{{ day.d }}</span>, {% endfor %}<span class="rest-interval" data-rest="{{- day[0].ri -}}">{{- day[0].ri -}}</span> RI
+                    {%- else -%}
+                      {%- for day in day -%}<span class="part-distance" data-distance="{{- day.r }} * {{ day.d -}}">{{- day.r }}&times;{{ day.d }}</span>, {% endfor -%}<span class="rest-interval" data-rest="{{- day[0].ri -}}">{{- day[0].ri -}}</span> RI
+                    {%- endif -%}
+
+                    </span>
+
+                  {%- else -%}
+
+                    {%- if day == "x-train" -%}
+                      <td class="x-train">
+                    {%- elsif day == "strength" -%}
+                      <td class="strength">
+                    {%- else -%}
+                      <td>
+                    {%- endif -%}
+
+                    {%- assign link_to = false -%}
+                    {%- for link in page.links -%}{%- if link[0] == day %}{%- assign link_to = link[1] -%}{%- endif -%}{%- endfor -%}
+
+                    {%- if day == "strength" -%}
+                      <a href="#{{ link_to }}" class="day-type fw-bold">{{ day | capitalize }}</a>
+                    {%- elsif day != "-" -%}
+                      <span class="day-type fw-bold">{{- day | capitalize -}}</span>
+                    {%- endif -%}
+
+                  {%- endif -%}
+
+                  </td>
+
+                {%- endfor -%}
+              </tr>
+              {%- assign week_num = week_num | plus: 1 -%}
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="strength">
+          <div class="card-body">
+            <h5 class="card-title">Strength</h5>
+            <p class="card-text">Do each exercise below 5-10 reps &times; 2-3 sets each</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Stair step up</li>
+            <li class="list-group-item">High knee</li>
+            <li class="list-group-item">Cossack squat</li>
+            <li class="list-group-item">Reverse lunge w/ high knee</li>
+            <li class="list-group-item">One legged box squat</li>
+            <li class="list-group-item">Bulgarian split squat</li>
+            <li class="list-group-item">Ankle flex (dorsiflexion)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="core">
+          <div class="card-body">
+            <h5 class="card-title">Core</h5>
+            <p class="card-text">This is the McGill Big 3 with a clamshell.<br/>Do in a circuit, 10-15s per exercise, with no rest, repeat 3 times.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Modified curl up</li>
+            <li class="list-group-item">Side Bridge</li>
+            <li class="list-group-item">Bird dog</li>
+            <li class="list-group-item">Side bridge clamshell/lateral leg raise</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const MARATHON_DISTANCE_IN_KM = 42.195;
+    const PaceUnit = Object.freeze({
+      SecPerKm: 0,
+      SecPerMi: 1,
+      KmPerHour: 2,
+      MiPerHour: 3,
+    });
+    const KM_PER_MI = 1.609344;
+    const M_PER_KM = 1000.0;
+    const SEC_PER_HOUR = 60.0 * 60.0;
+      const ConvertPace = {
+        FromSecPerKm: 0,
+        ToSecPerKm: 1,
+      };
+      ConvertPace[PaceUnit.SecPerKm] = {};
+      ConvertPace[PaceUnit.SecPerKm][ConvertPace.FromSecPerKm] = (p) => p;
+      ConvertPace[PaceUnit.SecPerKm][ConvertPace.ToSecPerKm] = (p) => p;
+      ConvertPace[PaceUnit.SecPerMi] = {};
+      ConvertPace[PaceUnit.SecPerMi][ConvertPace.FromSecPerKm] = (p) => p * KM_PER_MI;
+      ConvertPace[PaceUnit.SecPerMi][ConvertPace.ToSecPerKm] = (p) => p / KM_PER_MI;
+      ConvertPace[PaceUnit.KmPerHour] = {};
+      ConvertPace[PaceUnit.KmPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / p;
+      ConvertPace[PaceUnit.KmPerHour][ConvertPace.ToSecPerKm] = (p) => SEC_PER_HOUR / p;
+      ConvertPace[PaceUnit.MiPerHour] = {};
+      ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
+      ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
+
+    function convertPace(v, from_unit, to_unit) {
+      const sec_per_km = ConvertPace[from_unit][ConvertPace.ToSecPerKm](v);
+      return ConvertPace[to_unit][ConvertPace.FromSecPerKm](sec_per_km);
+    }
+
+    const MarathonType = Object.freeze({
+      MP: 0,
+      HMP: 1,
+    });
+
+    function fivek_pace_to_marathon_pace(pace_sec_per_km, marathon_type) {
+      fivek_time = pace_sec_per_km * 5;
+      switch (marathon_type) {
+        case MarathonType.MP:
+          return 0.2306105337742084 * fivek_time;
+        case MarathonType.HMP:
+          return 0.21973232561801337 * fivek_time;
+      }
+      return null;
+    }
+
+    const RepeatType = Object.freeze({
+      M400: 0,
+      M600: 1,
+      M800: 2,
+      M1000: 3,
+      M1200: 4,
+      M1600: 5,
+      M2000: 6,
+    });
+
+    function fivek_pace_to_repeat_time(pace_sec_per_km, repeat_type) {
+      fivek_time = pace_sec_per_km * 5;
+      switch (repeat_type) {
+        case RepeatType.M400:
+          return 0.0804629 * fivek_time - 10;
+        case RepeatType.M600:
+          return 0.12069 * fivek_time - 13;
+        case RepeatType.M800:
+          return 0.160931 * fivek_time - 16;
+        case RepeatType.M1000:
+          return 0.201333 * fivek_time - 18.3019;
+        case RepeatType.M1200:
+          return 0.241402 * fivek_time - 18;
+        case RepeatType.M1600:
+          return 0.321833 * fivek_time - 16;
+        case RepeatType.M2000:
+          return 0.402275 * fivek_time - 15;
+      }
+      return null;
+    }
+
+    const TempoType = Object.freeze({
+      ST: 0,
+      MT: 1,
+      LT: 2,
+    });
+
+    function fivek_pace_to_tempo_pace(pace_sec_per_km, tempo_type) {
+      fivek_time = pace_sec_per_km * 5;
+      switch (tempo_type) {
+        case TempoType.ST:
+          return fivek_time / 5 + 10;
+        case TempoType.MT:
+          return fivek_time / 5 + 20;
+        case TempoType.LT:
+          return fivek_time / 5 + 29;
+      }
+      return null;
+    }
+
+    function parseDistanceExpressionWithUnits(str) {
+      const tokens = [...str.matchAll(/[^ \t]+/g)].map(m => m[0]);
+      let value_queue = [];
+      let op_stack = [];
+
+      for (tok of tokens) {
+        if (tok === '*' || tok === '/' || tok === '+' || tok === '-') {
+          op_stack.push(tok);
+        } else {
+          value_queue.unshift(tok);
+        }
+      }
+
+      for (op of op_stack) {
+        // console.log(`${op}: ${value_queue}`)
+        if (op === '*') {
+          let [a, b] = [value_queue.pop(), value_queue.pop()];
+          let [a_in_km, b_in_km] = [deserializeDistance(a), deserializeDistance(b)];
+          if (a_in_km !== null && b_in_km === null) {
+            value_queue.push(`${a_in_km * parseFloat(b)}km`);
+          } else if (a_in_km === null && b_in_km !== null) {
+            value_queue.push(`${parseFloat(a) * b_in_km}km`);
+          } else if (a_in_km === null && b_in_km === null) {
+            value_queue.push(`${parseFloat(a) * parseFloat(b)}`);
+          } else {
+            console.error(`Invalid multiplication: ${a} * ${b}`);
+            return null;
+          }
+        } else if (op === '+') {
+          let [a, b] = [value_queue.pop(), value_queue.pop()];
+          let [a_in_km, b_in_km] = [deserializeDistance(a), deserializeDistance(b)];
+          if (a_in_km === null && b_in_km === null) {
+            value_queue.push(`${parseFloat(a) + parseFloat(b)}`);
+          } else if (a_in_km !== null && b_in_km !== null) {
+            value_queue.push(`${a_in_km + b_in_km}km`);
+          } else {
+            console.error(`Invalid addition: ${a} + ${b}`);
+            return null;
+          }
+        } else {
+          console.error(`Operator not yet implemented: "${op}"`);
+          return null;
+        }
+      }
+
+      if (value_queue.length !== 1) {
+        const how_many = value_queue.length === 0 ? 'Not enough' : 'Too many';
+        console.error(`${how_many} values in value queue, should be one: ${value_queue}`);
+        return null;
+      }
+
+      return deserializeDistance(value_queue[0]);
+    }
+
+    function deserializeDistance(str) {
+      if (typeof str !== "string") {
+        return null;
+      }
+      const num = parseFloat(str);
+      if (isNaN(num)) {
+        return null;
+      }
+      const unit_match = str.match(/.+?(km|mi|m)$/);
+      if (!unit_match || unit_match.length !== 2) {
+        return null;
+      }
+      const unit = unit_match[1];
+      if (unit === "km") {
+        return num;
+      } if (unit === "m") {
+        return num / M_PER_KM;
+      } else if (unit === "mi") {
+        return num * KM_PER_MI;
+      }
+
+      return null;
+    }
+
+    function serializeDistance(distance_in_km, pace_unit) {
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.KmPerHour) {
+        return `${round_to_decimal(distance_in_km, 1)}km`;
+      } else if (pace_unit === PaceUnit.SecPerMi || pace_unit === PaceUnit.MiPerHour) {
+        return `${round_to_decimal(distance_in_km / KM_PER_MI, 1)}mi`;
+      }
+      return null;
+    }
+
+    function serializePace(pace, pace_unit) {
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
+        return serializeTime(pace);
+      } else if (pace_unit === PaceUnit.KmPerHour || pace_unit === PaceUnit.MiPerHour) {
+        return `${round_to_decimal(pace, 1)}`;
+      }
+      return null;
+    }
+
+    function deserializePace(str, pace_unit) {
+      if (!(pace_unit in Object.values(PaceUnit))) {
+        return null;
+      }
+      let num;
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
+        num = deserializeTime(str);
+      }
+      else {
+        num = parseFloat(str);
+      }
+      return ConvertPace[pace_unit][ConvertPace.ToSecPerKm](num)
+    }
+
+    function displayPaceUnit(pace_unit) {
+      const PrettyPaceUnit = {}
+      PrettyPaceUnit[PaceUnit.SecPerKm] = "&#8288;/km";
+      PrettyPaceUnit[PaceUnit.SecPerMi] = "&#8288;/mi";
+      PrettyPaceUnit[PaceUnit.KmPerHour] = "&#8288;km/h";
+      PrettyPaceUnit[PaceUnit.MiPerHour] = "&#8288;mi/h";
+      return PrettyPaceUnit[pace_unit];
+    }
+
+    function serializeTime(seconds) {
+      if (!Number.isFinite(seconds)) {
+        return null;
+      }
+      
+      let t = [];
+      const h = Math.floor(seconds / 3600);
+      if (h > 0)
+        t.push(h);
+      const m = Math.floor((seconds % 3600) / 60);
+      if (m > 0 || t.length > 0)
+        t.push(`${m}`.padStart(1 + (t.length > 0), '0'));
+      const s = seconds % 60;
+      t.push(`${round_to_decimal(s, 1 - (t.length > 0))}`.padStart(1 + (t.length > 0), '0'));
+      return t.join(':');
+    }
+
+    function deserializeTime(str) {
+      const t = str.split(':');
+      return parseFloat(t.pop()||'0') +
+        parseInt(t.pop()||'0', 10)*60 +
+        parseInt(t.pop()||'0', 10)*3600;
+    }
+
+    function swapCountdowns() {
+      const program_num_weeks = $("table tbody tr").length;
+
+      for (const el of $('table tbody tr td .week-num')) {
+        const $el = $(el);
+        const text_match = $el.text().match(/(-|#)?(\d+)/);
+        const num = parseInt(text_match[2], 10);
+        const inverse_num = program_num_weeks - num;
+        if (text_match[1] === '#') {
+          $el.text(`${inverse_num == 0 ? '' : '-'}${inverse_num}`);
+        } else {
+          $el.text(`#${inverse_num}`);
+        }
+      }
+    }
+
+    function updatePredictions(pace_sec_per_km, pace_unit) {
+      const marathon_pace = fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.MP);
+      const halfmarathon_pace = fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.HMP);
+
+      $('.target-marathon-time')
+        .html(`${serializeTime(MARATHON_DISTANCE_IN_KM * marathon_pace)} @ ${serializePace(convertPace(marathon_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`)
+        .parents(".d-none:eq(0)")
+        .removeClass("d-none");
+      $('.target-halfmarathon-time')
+        .html(`${serializeTime(0.5 * MARATHON_DISTANCE_IN_KM * halfmarathon_pace)} @ ${serializePace(convertPace(halfmarathon_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`)
+        .parents(".d-none:eq(0)")
+        .removeClass("d-none");
+    }
+
+    const DayType = Object.freeze({
+      Long: 0,
+      Tempo: 1,
+      Repeats: 2,
+    });
+
+    function updatePace(pace_sec_per_km, pace_unit) {
+      function classifyDay($td) {
+        if ($td.hasClass('short-tempo') || $td.hasClass('mid-tempo') || $td.hasClass('long-tempo')) {
+          return DayType.Tempo;
+        } else if ($td.hasClass('long') || $td.hasClass('marathon')) {
+          return DayType.Long;
+        } else if ($td.hasClass('repeats')) {
+          return DayType.Repeats;
+        }
+        return null;
+      }
+      function classifyTempo($td) {
+        if ($td.hasClass('short-tempo')) {
+          return TempoType.ST;
+        } else if ($td.hasClass('mid-tempo')) {
+          return TempoType.MT;
+        } else if ($td.hasClass('long-tempo')) {
+          return TempoType.LT;
+        }
+        return null;
+      }
+      function classifyRepeat(str) {
+        switch (str) {
+          case "400m":
+            return RepeatType.M400;
+          case "600m":
+            return RepeatType.M600;
+          case "800m":
+            return RepeatType.M800;
+          case "1000m":
+            return RepeatType.M1000;
+          case "1200m":
+            return RepeatType.M1200;
+          case "1600m":
+            return RepeatType.M1600;
+          case "2000m":
+            return RepeatType.M2000;
+        }
+        return null;
+      }
+      function restIntervalToTime(ri, ri_pace_per_km) {
+        const ri_in_km = deserializeDistance(ri);
+        
+        if (ri.endsWith("sec")) {
+          return parseFloat(ri);
+        } else if (ri.endsWith("min")) {
+          return 60 * parseFloat(ri);
+        } else if (ri_in_km !== null) {
+          return ri_in_km * ri_pace_per_km;
+        }
+        return null;
+      }
+
+      $("table tbody tr td .addon").remove();
+
+      if (!Number.isFinite(pace_sec_per_km) || !(pace_unit in Object.values(PaceUnit))) {
+        return;
+      }
+
+      for (const el of $(".day-distance")) {
+        const $el = $(el);
+        const $td = $el.parents("td:eq(0)");
+        const day_type = classifyDay($td);
+        const $parts = $td.find('.part-distance');
+
+        switch (day_type) {
+          case DayType.Long:
+          case DayType.Tempo: {
+            const distances = $parts.map((i, e) => $(e).data('distance').trim()).toArray();
+            const is_3part = distances.length > 1;
+            const mp_offset = parseFloat($td.data('mp-offset') || '0');
+            const main_pace = day_type == DayType.Long ? fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.MP) + mp_offset : fivek_pace_to_tempo_pace(pace_sec_per_km, classifyTempo($td));
+            const warmup_cooldown_pace = main_pace * 1.2;
+            const main_distance = deserializeDistance(is_3part ? distances[1] : distances[0]);
+            const warmup_cooldown_distance = parseDistanceExpressionWithUnits(is_3part ? distances.toSpliced(1,1).join('+') : '0km');
+            const total_time = main_pace * main_distance + warmup_cooldown_pace * warmup_cooldown_distance;
+
+            const $main_part = is_3part ? $($parts[1]) : $parts;
+            const warmup_cooldown_parts = is_3part ? $parts.toArray().toSpliced(1,1) : [];
+            
+            $main_part
+              .html(serializeDistance(deserializeDistance($main_part.data("distance")), pace_unit))
+              .append(`<sup class="addon">${serializePace(convertPace(main_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}</sup>`);
+            for (const part of $(warmup_cooldown_parts)) {
+              const $part = $(part);
+              $part
+                .html(serializeDistance(deserializeDistance($part.data("distance")), pace_unit))
+                .append(`<sup class="addon">${serializePace(convertPace(warmup_cooldown_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}</sup>`);
+            }
+            const converted_mp_offset = convertPace(main_pace+mp_offset, PaceUnit.SecPerKm, pace_unit) - convertPace(main_pace, PaceUnit.SecPerKm, pace_unit);
+
+            $td.append(`<span class="addon fst-italic"><br/>${serializeTime(total_time)}</span>`);
+            $td.find('.mp-offset').html(`${converted_mp_offset > 0 ? '+' : ''}${serializePace(converted_mp_offset, pace_unit)}`);
+
+            break;
+          }
+          case DayType.Repeats: {
+            let total_time = 0;
+            let total_reps = 0;
+
+            for (const part of $parts) {
+              const $part = $(part);
+              const distance_parts = $part.data("distance").split('*').map(e => e.trim());
+              const is_repeated = distance_parts.length > 1;
+              const num_repeats = parseFloat(is_repeated ? distance_parts[0] : '1');
+              const distance = is_repeated ? distance_parts[1] : distance_parts[0];
+              const distance_in_km = deserializeDistance(distance);
+              const time = fivek_pace_to_repeat_time(pace_sec_per_km, classifyRepeat(distance));
+              const pace_str = `@${serializePace(convertPace(time / distance_in_km, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
+              
+              total_time += num_repeats * time;
+              total_reps += num_repeats;
+
+              $part
+                .append(`<sup class="addon">${serializeTime(time)}${distance_in_km === 1 && pace_unit === PaceUnit.SecPerKm ? '' : pace_str}</sup>`);
+            }
+            total_time += (total_reps - 1) * restIntervalToTime($td.find(".rest-interval").text().trim(), 10 * 60);
+
+            $td.append(`<span class="addon fst-italic"><br/>${serializeTime(total_time)}</span>`);
+
+            break;
+          }
+        }
+      }
+    }
+
+    function updateDates(date) {
+      $(".day-of-week, .this-week").removeClass(["day-of-week", "this-week"]);
+      $(".week-date").remove();
+      
+      if (!(date instanceof Date)) {
+        return;
+      }
+
+      const now = new Date();
+      const program_num_weeks = $("table tbody tr").length;
+      const next_monday_after_date = addDays(date, 7 - mod(date.getDay()-1, 7));
+      const program_start_ts = next_monday_after_date.getTime() - (program_num_weeks * 1000 * 60 * 60 * 24 * 7);
+      const elapsed_days = (now.getTime() - program_start_ts) / (1000 * 60 * 60 * 24);
+      const elapsed_weeks = Math.ceil(elapsed_days / 7);
+      const elapsed_dow = Math.floor(elapsed_days) % 7;
+
+      let i = 0;
+      for (const el of $('table tbody tr td:first-child')) {
+        const $el = $(el);
+        const current_monday = addDays(new Date(program_start_ts), 7 * i);
+        const month = `${current_monday.getMonth() + 1}`;
+        const day = `${current_monday.getDate()}`;
+        $el.append(`<div class="week-date">${month}/${day}</div>`);
+        i += 1;
+      }
+
+      if (elapsed_days < 0 || elapsed_weeks > program_num_weeks) {
+        return;
+      }
+
+      $(`table tbody tr:nth-child(${elapsed_weeks})`).addClass("this-week");
+      $(`table tbody tr td:nth-child(${elapsed_dow+2})`).addClass("day-of-week");
+    }
+
+    function round_to_decimal(v, d) {
+      return +v.toFixed(d);
+    }
+
+    function mod(v, m) {
+      return ((v % m) + m) % m;
+    }
+
+    function addDays(date, days) {
+      const result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
+    function deserializeDate(str) {
+      const [year, month, day] = str.split("-");
+      if (!year || !month || !day) {
+        return null;
+      } 
+      return new Date(year, month - 1, day);
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return null;
+    }
+
+    $(function() {
+      "use strict";
+
+      const date_cookie = getCookie("date");
+      const pace_cookie = getCookie("pace");
+      const pace_unit_cookie = getCookie("pace_unit");
+      const countdown_cookie = getCookie("countdown");
+      let date = null;
+      let pace_sec_per_km = null;
+      let pace_unit = 0;
+      let countdown = false;
+
+      if (countdown_cookie) {
+        countdown = countdown_cookie === "true";
+        if (countdown) {
+          swapCountdowns();
+        }
+      }
+
+      if (date_cookie) {
+        $('#date').val(date_cookie);
+        date = deserializeDate(date_cookie);
+      }
+
+      if (pace_unit_cookie) {
+        $('#pace-unit').val(pace_unit_cookie);
+        pace_unit = PaceUnit[pace_unit_cookie];
+      }
+
+      if (pace_cookie) {
+        pace_sec_per_km = deserializePace(pace_cookie, pace_unit);
+        $('#pace').val(serializePace(convertPace(pace_sec_per_km, PaceUnit.SecPerKm, pace_unit), pace_unit));
+      }
+
+      $('#date').on('change', function() {
+        const date_str = $(this).val();
+        date = deserializeDate(date_str);
+        setCookie('date', date_str, 365);
+        updateDates(date);
+      });
+
+      $('#pace').on('change', function() {
+        const pace_str = $(this).val();
+        pace_sec_per_km = deserializePace(pace_str, pace_unit);
+        if (!Number.isFinite(pace_sec_per_km)) {
+          console.error(`Failed to deserialize pace string: ${pace_str}`);
+          return;
+        }
+        if (!(pace_unit in Object.values(PaceUnit))) {
+          return;
+        }
+        setCookie('pace', pace_str, 365);
+        updatePace(pace_sec_per_km, pace_unit);
+        updatePredictions(pace_sec_per_km, pace_unit);
+      });
+
+      $('#pace-unit').on('change', function() {
+        const pace_unit_str = $(this).val();
+        if (!(pace_unit_str in PaceUnit)) {
+          console.error(`${pace_unit_str} not one of ${Object.keys(PaceUnit)}`);
+          return;
+        }
+        pace_unit = PaceUnit[pace_unit_str];
+        setCookie('pace_unit', pace_unit_str, 365);
+        if (!pace_sec_per_km) {
+          return;
+        }
+        updatePace(pace_sec_per_km, pace_unit);
+        updatePredictions(pace_sec_per_km, pace_unit);
+        $('#pace').val(serializePace(convertPace(pace_sec_per_km, PaceUnit.SecPerKm, pace_unit), pace_unit)).trigger('change');
+      });
+
+      $('table tbody tr td:first-child').on('click', () => {
+        countdown = !countdown;
+        setCookie("countdown", countdown, 365);
+        swapCountdowns();
+      });
+
+      setInterval(function () {
+        updateDates(date);
+      }, 1000 * 60 * 60); // repeat every hour
+      
+      if (date != null) {
+        updateDates(date);
+      }
+      if (pace_sec_per_km !== null) {
+        updatePace(pace_sec_per_km, pace_unit);
+        updatePredictions(pace_sec_per_km, pace_unit);
+      }
+    });
+  </script>
+</body>
+
+</html>
