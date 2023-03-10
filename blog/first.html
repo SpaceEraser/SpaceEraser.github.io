@@ -635,27 +635,30 @@ program:
         switch (day_type) {
           case DayType.Long:
           case DayType.Tempo: {
-            const distances = $parts.map((i, e) => $(e).data('distance').trim()).toArray();
-            const is_3part = distances.length > 1;
+            let total_time = 0;
+            const is_3part = $parts.length > 1;
+            let main_pace = 0;
             const mp_offset = parseFloat($td.data('mp-offset') || '0');
-            const main_pace = day_type == DayType.Long ? fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.MP) + mp_offset : fivek_pace_to_tempo_pace(pace_sec_per_km, classifyTempo($td));
-            const warmup_cooldown_pace = main_pace * 1.2;
-            const main_distance = deserializeDistance(is_3part ? distances[1] : distances[0]);
-            const warmup_cooldown_distance = parseDistanceExpressionWithUnits(is_3part ? distances.toSpliced(1,1).join('+') : '0km');
-            const total_time = main_pace * main_distance + warmup_cooldown_pace * warmup_cooldown_distance;
-
-            const $main_part = is_3part ? $($parts[1]) : $parts;
-            const warmup_cooldown_parts = is_3part ? $parts.toArray().toSpliced(1,1) : [];
-            
-            $main_part
-              .html(serializeDistance(deserializeDistance($main_part.data("distance")), pace_unit))
-              .append(`<sup class="addon">${serializePace(convertPace(main_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}</sup>`);
-            for (const part of $(warmup_cooldown_parts)) {
+            let i = 0;
+            for (const part of $parts) {
               const $part = $(part);
+              const distance = deserializeDistance($part.data("distance"));
+              let pace = day_type == DayType.Long ? fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.MP) + mp_offset : fivek_pace_to_tempo_pace(pace_sec_per_km, classifyTempo($td));
+              if (is_3part && i != 1) {
+                pace *= 1.3;
+              }
+              if ((is_3part && i == 1) || (!is_3part && i == 0)) {
+                main_pace = pace;
+              }
+              const time = pace * distance;
+              total_time += time;
               $part
-                .html(serializeDistance(deserializeDistance($part.data("distance")), pace_unit))
-                .append(`<sup class="addon">${serializePace(convertPace(warmup_cooldown_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}</sup>`);
+                .html(serializeDistance(distance, pace_unit))
+                .append(`<sup class="addon">${serializeTime(time)}@${serializePace(convertPace(pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}</sup>`);
+
+              i += 1;
             }
+
             const converted_mp_offset = convertPace(main_pace+mp_offset, PaceUnit.SecPerKm, pace_unit) - convertPace(main_pace, PaceUnit.SecPerKm, pace_unit);
 
             $td.append(`<span class="addon fst-italic"><br/>${serializeTime(total_time)}</span>`);
