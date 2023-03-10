@@ -650,11 +650,18 @@ program:
               if ((is_3part && i == 1) || (!is_3part && i == 0)) {
                 main_pace = pace;
               }
+              
               const time = pace * distance;
+
+              let addon = `${serializePace(convertPace(pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
+              if (is_3part) {
+                addon = `${serializeTime(time)}@${addon}`;
+              }
+
               total_time += time;
               $part
                 .html(serializeDistance(distance, pace_unit))
-                .append(`<sup class="addon">${serializeTime(time)}@${serializePace(convertPace(pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}</sup>`);
+                .append(`<sup class="addon">${addon}</sup>`);
 
               i += 1;
             }
