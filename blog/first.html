@@ -22,7 +22,7 @@ program:
   - ["-", "x-train", [{r: 10, d: "400m", ri: "400m"}], "strength", {s: "1.5km", d: "8km", e: "1.5km", n: "mid-tempo"}, "x-train", {d: "32km", n: "long", o: 19}]
   - ["-", "x-train", [{r: 8, d: "800m", ri: "90sec"}], "strength", {s: "1.5km", d: "8km", e: "1,5km", n: "mid-tempo"}, "x-train", {d: "21km", n: "long"}]
   - ["-", "x-train", [{r: 5, d: "1000m", ri: "400m"}], "strength", {s: "3km", d: "5km", e: "1.5km", n: "short-tempo"}, "x-train", {d: "13km", n: "long"}]
-  - ["-", "x-train", [{r: 6, d: "400m", ri: "400m"}], "strength", {s: "1.5km", d: "5km", e: "1.5km", n: "long"}, "x-train", {d: "42.2km", n: "marathon"}]
+  - ["-", "x-train", [{r: 6, d: "400m", ri: "400m"}], "strength", {s: "1.5km", d: "5km", e: "1.5km", n: "long"}, "x-train", {d: "42.195km", n: "marathon"}]
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -301,24 +301,36 @@ program:
     const KM_PER_MI = 1.609344;
     const M_PER_KM = 1000.0;
     const SEC_PER_HOUR = 60.0 * 60.0;
-      const ConvertPace = {
-        FromSecPerKm: 0,
-        ToSecPerKm: 1,
-      };
-      ConvertPace[PaceUnit.SecPerKm] = {};
-      ConvertPace[PaceUnit.SecPerKm][ConvertPace.FromSecPerKm] = (p) => p;
-      ConvertPace[PaceUnit.SecPerKm][ConvertPace.ToSecPerKm] = (p) => p;
-      ConvertPace[PaceUnit.SecPerMi] = {};
-      ConvertPace[PaceUnit.SecPerMi][ConvertPace.FromSecPerKm] = (p) => p * KM_PER_MI;
-      ConvertPace[PaceUnit.SecPerMi][ConvertPace.ToSecPerKm] = (p) => p / KM_PER_MI;
-      ConvertPace[PaceUnit.KmPerHour] = {};
-      ConvertPace[PaceUnit.KmPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / p;
-      ConvertPace[PaceUnit.KmPerHour][ConvertPace.ToSecPerKm] = (p) => SEC_PER_HOUR / p;
-      ConvertPace[PaceUnit.MiPerHour] = {};
-      ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
-      ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
+    const ConvertPace = {
+      FromSecPerKm: 0,
+      ToSecPerKm: 1,
+    };
+    ConvertPace[PaceUnit.SecPerKm] = {};
+    ConvertPace[PaceUnit.SecPerKm][ConvertPace.FromSecPerKm] = (p) => p;
+    ConvertPace[PaceUnit.SecPerKm][ConvertPace.ToSecPerKm] = (p) => p;
+    ConvertPace[PaceUnit.SecPerMi] = {};
+    ConvertPace[PaceUnit.SecPerMi][ConvertPace.FromSecPerKm] = (p) => p * KM_PER_MI;
+    ConvertPace[PaceUnit.SecPerMi][ConvertPace.ToSecPerKm] = (p) => p / KM_PER_MI;
+    ConvertPace[PaceUnit.KmPerHour] = {};
+    ConvertPace[PaceUnit.KmPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / p;
+    ConvertPace[PaceUnit.KmPerHour][ConvertPace.ToSecPerKm] = (p) => SEC_PER_HOUR / p;
+    ConvertPace[PaceUnit.MiPerHour] = {};
+    ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
+    ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
+    
+    const PrettyPaceUnit = {}
+    PrettyPaceUnit[PaceUnit.SecPerKm] = "/km";
+    PrettyPaceUnit[PaceUnit.SecPerMi] = "/mi";
+    PrettyPaceUnit[PaceUnit.KmPerHour] = "km/h";
+    PrettyPaceUnit[PaceUnit.MiPerHour] = "mi/h";
 
     function convertPace(v, from_unit, to_unit) {
+      if (!Number.isFinite(v)) {
+        return null;
+      }
+      if (from_unit === to_unit) {
+        return v;
+      }
       const sec_per_km = ConvertPace[from_unit][ConvertPace.ToSecPerKm](v);
       return ConvertPace[to_unit][ConvertPace.FromSecPerKm](sec_per_km);
     }
@@ -467,7 +479,7 @@ program:
       return null;
     }
 
-    function serializeDistance(distance_in_km, pace_unit) {
+    function formatDistance(distance_in_km, pace_unit) {
       if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.KmPerHour) {
         return `${round_to_decimal(distance_in_km, 1)}km`;
       } else if (pace_unit === PaceUnit.SecPerMi || pace_unit === PaceUnit.MiPerHour) {
@@ -476,11 +488,20 @@ program:
       return null;
     }
 
-    function serializePace(pace, pace_unit) {
+    function formatPace(pace, pace_unit) {
       if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
-        return serializeTime(pace);
+        return formatTime(pace);
       } else if (pace_unit === PaceUnit.KmPerHour || pace_unit === PaceUnit.MiPerHour) {
         return `${round_to_decimal(pace, 1)}`;
+      }
+      return null;
+    }
+
+    function serializePace(pace, pace_unit) {
+      if (pace_unit === PaceUnit.SecPerKm || pace_unit === PaceUnit.SecPerMi) {
+        return formatTime(pace);
+      } else if (pace_unit === PaceUnit.KmPerHour || pace_unit === PaceUnit.MiPerHour) {
+        return `${pace}`;
       }
       return null;
     }
@@ -495,19 +516,23 @@ program:
       } else {
         num = parseFloat(str);
       }
-      return ConvertPace[pace_unit][ConvertPace.ToSecPerKm](num)
+      return convertPace(num, pace_unit, PaceUnit.SecPerKm);
     }
 
     function displayPaceUnit(pace_unit) {
-      const PrettyPaceUnit = {}
-      PrettyPaceUnit[PaceUnit.SecPerKm] = "&#8288;/km";
-      PrettyPaceUnit[PaceUnit.SecPerMi] = "&#8288;/mi";
-      PrettyPaceUnit[PaceUnit.KmPerHour] = "&#8288;km/h";
-      PrettyPaceUnit[PaceUnit.MiPerHour] = "&#8288;mi/h";
-      return PrettyPaceUnit[pace_unit];
+      return `&#8288;${PrettyPaceUnit[pace_unit]}`;
     }
 
-    function serializeTime(seconds) {
+    function parsePace(str) {
+      for (const key of Object.keys(PaceUnit)) {
+        if (str.endsWith(PrettyPaceUnit[PaceUnit[key]])) {
+          return deserializePace(str.slice(0, -PrettyPaceUnit[PaceUnit[key]].length), PaceUnit[key]);
+        }
+      }
+      return null;
+    }
+
+    function formatTime(seconds) {
       if (!Number.isFinite(seconds)) {
         return null;
       }
@@ -552,11 +577,11 @@ program:
       const halfmarathon_pace = fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.HMP);
 
       $('.target-marathon-time')
-        .html(`${serializeTime(MARATHON_DISTANCE_IN_KM * marathon_pace)} @ ${serializePace(convertPace(marathon_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`)
+        .html(`${formatTime(MARATHON_DISTANCE_IN_KM * marathon_pace)} @ ${formatPace(convertPace(marathon_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`)
         .parents(".d-none:eq(0)")
         .removeClass("d-none");
       $('.target-halfmarathon-time')
-        .html(`${serializeTime(0.5 * MARATHON_DISTANCE_IN_KM * halfmarathon_pace)} @ ${serializePace(convertPace(halfmarathon_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`)
+        .html(`${formatTime(0.5 * MARATHON_DISTANCE_IN_KM * halfmarathon_pace)} @ ${formatPace(convertPace(halfmarathon_pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`)
         .parents(".d-none:eq(0)")
         .removeClass("d-none");
     }
@@ -653,14 +678,14 @@ program:
               
               const time = pace * distance;
 
-              let addon = `${serializePace(convertPace(pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
+              let addon = `${formatPace(convertPace(pace, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
               if (is_3part) {
-                addon = `${serializeTime(time)}@${addon}`;
+                addon = `${formatTime(time)}@${addon}`;
               }
 
               total_time += time;
               $part
-                .html(serializeDistance(distance, pace_unit))
+                .html(formatDistance(distance, pace_unit))
                 .append(`<sup class="addon">${addon}</sup>`);
 
               i += 1;
@@ -668,8 +693,8 @@ program:
 
             const converted_mp_offset = convertPace(main_pace+mp_offset, PaceUnit.SecPerKm, pace_unit) - convertPace(main_pace, PaceUnit.SecPerKm, pace_unit);
 
-            $td.append(`<span class="addon fst-italic"><br/>${serializeTime(total_time)}</span>`);
-            $td.find('.mp-offset').html(`${converted_mp_offset > 0 ? '+' : ''}${serializePace(converted_mp_offset, pace_unit)}`);
+            $td.append(`<span class="addon fst-italic"><br/>${formatTime(total_time)}</span>`);
+            $td.find('.mp-offset').html(`${converted_mp_offset > 0 ? '+' : ''}${formatPace(converted_mp_offset, pace_unit)}`);
 
             break;
           }
@@ -685,17 +710,17 @@ program:
               const distance = is_repeated ? distance_parts[1] : distance_parts[0];
               const distance_in_km = deserializeDistance(distance);
               const time = fivek_pace_to_repeat_time(pace_sec_per_km, classifyRepeat(distance));
-              const pace_str = `@${serializePace(convertPace(time / distance_in_km, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
+              const pace_str = `@${formatPace(convertPace(time / distance_in_km, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
               
               total_time += num_repeats * time;
               total_reps += num_repeats;
 
               $part
-                .append(`<sup class="addon">${serializeTime(time)}${distance_in_km === 1 && pace_unit === PaceUnit.SecPerKm ? '' : pace_str}</sup>`);
+                .append(`<sup class="addon">${formatTime(time)}${distance_in_km === 1 && pace_unit === PaceUnit.SecPerKm ? '' : pace_str}</sup>`);
             }
             total_time += (total_reps - 1) * restIntervalToTime($td.find(".rest-interval").text().trim(), 10 * 60);
 
-            $td.append(`<span class="addon fst-italic"><br/>${serializeTime(total_time)}</span>`);
+            $td.append(`<span class="addon fst-italic"><br/>${formatTime(total_time)}</span>`);
 
             break;
           }
@@ -812,8 +837,8 @@ program:
       }
 
       if (pace_cookie) {
-        pace_sec_per_km = deserializePace(pace_cookie, pace_unit);
-        $('#pace').val(serializePace(convertPace(pace_sec_per_km, PaceUnit.SecPerKm, pace_unit), pace_unit));
+        pace_sec_per_km = parseFloat(pace_cookie);
+        $('#pace').val(formatPace(convertPace(pace_sec_per_km, PaceUnit.SecPerKm, pace_unit), pace_unit));
       }
 
       $('#date').on('change', function() {
@@ -833,7 +858,7 @@ program:
         if (!(pace_unit in Object.values(PaceUnit))) {
           return;
         }
-        setCookie('pace', pace_str, 365);
+        setCookie('pace', pace_sec_per_km, 365);
         updatePace(pace_sec_per_km, pace_unit);
         updatePredictions(pace_sec_per_km, pace_unit);
       });
@@ -851,7 +876,8 @@ program:
         }
         updatePace(pace_sec_per_km, pace_unit);
         updatePredictions(pace_sec_per_km, pace_unit);
-        $('#pace').val(serializePace(convertPace(pace_sec_per_km, PaceUnit.SecPerKm, pace_unit), pace_unit)).trigger('change');
+        $('#pace')
+          .val(formatPace(convertPace(pace_sec_per_km, PaceUnit.SecPerKm, pace_unit), pace_unit));
       });
 
       $('table tbody tr td:first-child').on('click', () => {
