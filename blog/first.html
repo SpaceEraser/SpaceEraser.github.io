@@ -261,7 +261,7 @@ program:
         <div class="card" id="strength">
           <div class="card-body">
             <h5 class="card-title">Strength</h5>
-            <p class="card-text">Do each exercise below 5-10 reps &times; 2-3 sets each</p>
+            <p class="card-text">Do with no rest<br/>Calf raises between exercises<br/>5-10 reps &times; 2-3 sets each</p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Stair step up</li>
@@ -278,13 +278,28 @@ program:
         <div class="card" id="core">
           <div class="card-body">
             <h5 class="card-title">Core</h5>
-            <p class="card-text">This is the McGill Big 3 with a clamshell.<br/>Do in a circuit, 10-15s per exercise, with no rest, repeat 3 times.</p>
+            <p class="card-text">This is the McGill Big 3 with an extra hip abduction exercise.<br/>Do in a circuit with no rest, <br/>10-15s &times; 3 sets</p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Modified curl up</li>
             <li class="list-group-item">Side Bridge</li>
             <li class="list-group-item">Bird dog</li>
             <li class="list-group-item">Side bridge clamshell/lateral leg raise</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="core">
+          <div class="card-body">
+            <h5 class="card-title">Cardio warm-up</h5>
+            <p class="card-text">Strength focused warm-ups before cardio<br/>10 reps/10s (per leg for single leg exercises)</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Squat</li>
+            <li class="list-group-item">Lunge</li>
+            <li class="list-group-item">Cossack squat</li>
+            <li class="list-group-item">Single leg RDL</li>
+            <li class="list-group-item">Single leg elevated glute bridge</li>
           </ul>
         </div>
       </div>
@@ -298,6 +313,7 @@ program:
       KmPerHour: 2,
       MiPerHour: 3,
     });
+    const YD_PER_MI = 1760;
     const KM_PER_MI = 1.609344;
     const M_PER_KM = 1000.0;
     const SEC_PER_HOUR = 60.0 * 60.0;
@@ -365,19 +381,19 @@ program:
       fivek_time = pace_sec_per_km * 5;
       switch (repeat_type) {
         case RepeatType.M400:
-          return 0.0804629 * fivek_time - 10;
+          return 0.08 * fivek_time - 10;
         case RepeatType.M600:
-          return 0.12069 * fivek_time - 13;
+          return 0.12 * fivek_time - 13;
         case RepeatType.M800:
-          return 0.160931 * fivek_time - 16;
+          return 0.16 * fivek_time - 16;
         case RepeatType.M1000:
-          return 0.201333 * fivek_time - 18.3019;
+          return 0.20 * fivek_time - 18;
         case RepeatType.M1200:
-          return 0.241402 * fivek_time - 18;
+          return 0.24 * fivek_time - 18;
         case RepeatType.M1600:
-          return 0.321833 * fivek_time - 16;
+          return 0.32 * fivek_time - 16;
         case RepeatType.M2000:
-          return 0.402275 * fivek_time - 15;
+          return 0.40 * fivek_time - 15;
       }
       return null;
     }
@@ -392,11 +408,11 @@ program:
       fivek_time = pace_sec_per_km * 5;
       switch (tempo_type) {
         case TempoType.ST:
-          return fivek_time / 5 + 10;
+          return 0.2 * fivek_time + 10;
         case TempoType.MT:
-          return fivek_time / 5 + 20;
+          return 0.2 * fivek_time + 20;
         case TempoType.LT:
-          return fivek_time / 5 + 29;
+          return 0.2 * fivek_time + 29;
       }
       return null;
     }
@@ -415,7 +431,6 @@ program:
       }
 
       for (op of op_stack) {
-        // console.log(`${op}: ${value_queue}`)
         if (op === '*') {
           let [a, b] = [value_queue.pop(), value_queue.pop()];
           let [a_in_km, b_in_km] = [deserializeDistance(a), deserializeDistance(b)];
@@ -459,21 +474,20 @@ program:
       if (typeof str !== "string") {
         return null;
       }
+      str = str.trim();
       const num = parseFloat(str);
-      if (isNaN(num)) {
+      if (!Number.isFinite(num)) {
         return null;
       }
-      const unit_match = str.match(/.+?(km|mi|m)$/);
-      if (!unit_match || unit_match.length !== 2) {
-        return null;
-      }
-      const unit = unit_match[1];
-      if (unit === "km") {
+
+      if (str.endsWith("km")) {
         return num;
-      } if (unit === "m") {
+      } else if (str.endsWith("m")) {
         return num / M_PER_KM;
-      } else if (unit === "mi") {
+      } else if (str.endsWith("mi")) {
         return num * KM_PER_MI;
+      } else if (str.endsWith("yd")) {
+        return (num * KM_PER_MI) / YD_PER_MI;
       }
 
       return null;
