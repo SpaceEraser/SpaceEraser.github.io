@@ -258,19 +258,18 @@ program:
     </div>
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-2">
-        <div class="card" id="strength">
+        <div class="card" id="core">
           <div class="card-body">
-            <h5 class="card-title">Strength</h5>
-            <p class="card-text">Do with no rest<br/>Calf raises between exercises<br/>5-10 reps &times; 2-3 sets each</p>
+            <h5 class="card-title">Cardio warm-up</h5>
+            <p class="card-text">Strength focused warm-up before cardio<br/>10 reps/10s (per leg for single leg exercises)</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Stair step up</li>
-            <li class="list-group-item">High knee</li>
+            <li class="list-group-item">Squat</li>
+            <li class="list-group-item">Lunge</li>
             <li class="list-group-item">Cossack squat</li>
-            <li class="list-group-item">Reverse lunge w/ high knee</li>
-            <li class="list-group-item">One legged box squat</li>
-            <li class="list-group-item">Bulgarian split squat</li>
-            <li class="list-group-item">Ankle flex (dorsiflexion)</li>
+            <li class="list-group-item">Reverse lunge</li>
+            <li class="list-group-item">Single leg RDL</li>
+            <li class="list-group-item">Single leg elevated glute bridge</li>
           </ul>
         </div>
       </div>
@@ -291,16 +290,35 @@ program:
       <div class="col-lg-3 col-md-6 mb-2">
         <div class="card" id="core">
           <div class="card-body">
-            <h5 class="card-title">Cardio warm-up</h5>
-            <p class="card-text">Strength focused warm-up before cardio<br/>10 reps/10s (per leg for single leg exercises)</p>
+            <h5 class="card-title">Stretch</h5>
+            <p class="card-text">Do in a circuit<br/>30s each (per leg if applicable) for 2 sets</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Squat</li>
-            <li class="list-group-item">Lunge</li>
+            <li class="list-group-item">Lying SI stretch</li>
+            <li class="list-group-item">Figure 4 glute stretch</li>
+            <li class="list-group-item">Lying hamstring stretch w/ band</li>
+            <li class="list-group-item">Kneeling hip flexor stretch</li>
+            <li class="list-group-item">Standing quad stretch</li>
+            <li class="list-group-item">Standing ITB side bend stretch</li>
+            <li class="list-group-item">Calf stretch (gastrocnemius)</li>
+            <li class="list-group-item">Calf stretch (soleus)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <div class="card" id="strength">
+          <div class="card-body">
+            <h5 class="card-title">Strength</h5>
+            <p class="card-text">Do with no rest<br/>Calf raises between exercises<br/>5-10 reps &times; 2-3 sets each</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Stair step up</li>
+            <li class="list-group-item">High knee</li>
             <li class="list-group-item">Cossack squat</li>
-            <li class="list-group-item">Reverse lunge</li>
-            <li class="list-group-item">Single leg RDL</li>
-            <li class="list-group-item">Single leg elevated glute bridge</li>
+            <li class="list-group-item">Reverse lunge w/ high knee</li>
+            <li class="list-group-item">One legged box squat</li>
+            <li class="list-group-item">Bulgarian split squat</li>
+            <li class="list-group-item">Ankle flex (dorsiflexion)</li>
           </ul>
         </div>
       </div>
@@ -308,16 +326,16 @@ program:
   </div>
   <script>
     const MARATHON_DISTANCE_IN_KM = 42.195;
+    const YD_PER_MI = 1760;
+    const KM_PER_MI = 1.609344;
+    const M_PER_KM = 1000.0;
+    const SEC_PER_HOUR = 60.0 * 60.0;
     const PaceUnit = Object.freeze({
       SecPerKm: 0,
       SecPerMi: 1,
       KmPerHour: 2,
       MiPerHour: 3,
     });
-    const YD_PER_MI = 1760;
-    const KM_PER_MI = 1.609344;
-    const M_PER_KM = 1000.0;
-    const SEC_PER_HOUR = 60.0 * 60.0;
     const ConvertPace = {
       FromSecPerKm: 0,
       ToSecPerKm: 1,
@@ -334,12 +352,6 @@ program:
     ConvertPace[PaceUnit.MiPerHour] = {};
     ConvertPace[PaceUnit.MiPerHour][ConvertPace.FromSecPerKm] = (p) => SEC_PER_HOUR / (p * KM_PER_MI);
     ConvertPace[PaceUnit.MiPerHour][ConvertPace.ToSecPerKm] = (p) => (SEC_PER_HOUR / p) / KM_PER_MI;
-    
-    const PrettyPaceUnit = {}
-    PrettyPaceUnit[PaceUnit.SecPerKm] = "/km";
-    PrettyPaceUnit[PaceUnit.SecPerMi] = "/mi";
-    PrettyPaceUnit[PaceUnit.KmPerHour] = "km/h";
-    PrettyPaceUnit[PaceUnit.MiPerHour] = "mi/h";
 
     function convertPace(v, from_unit, to_unit) {
       if (!Number.isFinite(v)) {
@@ -351,6 +363,12 @@ program:
       const sec_per_km = ConvertPace[from_unit][ConvertPace.ToSecPerKm](v);
       return ConvertPace[to_unit][ConvertPace.FromSecPerKm](sec_per_km);
     }
+    
+    const PrettyPaceUnit = {}
+    PrettyPaceUnit[PaceUnit.SecPerKm] = "/km";
+    PrettyPaceUnit[PaceUnit.SecPerMi] = "/mi";
+    PrettyPaceUnit[PaceUnit.KmPerHour] = "km/h";
+    PrettyPaceUnit[PaceUnit.MiPerHour] = "mi/h";
 
     const MarathonType = Object.freeze({
       MP: 0,
