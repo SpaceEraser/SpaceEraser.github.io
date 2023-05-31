@@ -569,6 +569,7 @@ program:
       if (!Number.isFinite(seconds)) {
         return null;
       }
+      seconds = round_to_decimal(seconds, 1 - (seconds >= 60));
       
       let t = [];
       const h = Math.floor(seconds / 3600);
@@ -577,8 +578,7 @@ program:
       const m = Math.floor((seconds % 3600) / 60);
       if (m > 0 || t.length > 0)
         t.push(`${m}`.padStart(1 + (t.length > 0), '0'));
-      const s = seconds % 60;
-      t.push(`${round_to_decimal(s, 1 - (t.length > 0))}`.padStart(1 + (t.length > 0), '0'));
+      t.push(`${seconds % 60}`.padStart(1 + (t.length > 0), '0'));
       return t.join(':');
     }
 
@@ -634,7 +634,7 @@ program:
     });
 
     function updatePace(pace_sec_per_km, pace_unit) {
-      function classifyDay($td) {
+      function classifyDayTd($td) {
         if ($td.hasClass('short-tempo') || $td.hasClass('mid-tempo') || $td.hasClass('long-tempo')) {
           return DayType.Tempo;
         } else if ($td.hasClass('long') || $td.hasClass('marathon')) {
@@ -644,7 +644,7 @@ program:
         }
         return null;
       }
-      function classifyTempo($td) {
+      function classifyTempoTd($td) {
         if ($td.hasClass('short-tempo')) {
           return TempoType.ST;
         } else if ($td.hasClass('mid-tempo')) {
@@ -654,7 +654,7 @@ program:
         }
         return null;
       }
-      function classifyRepeat(str) {
+      function parseRepeatStr(str) {
         switch (str) {
           case "400m":
             return RepeatType.M400;
@@ -694,7 +694,7 @@ program:
       for (const el of $(".day-distance")) {
         const $el = $(el);
         const $td = $el.parents("td:eq(0)");
-        const day_type = classifyDay($td);
+        const day_type = classifyDayTd($td);
         const $parts = $td.find('.part');
 
         switch (day_type) {
@@ -711,7 +711,7 @@ program:
               const distance = deserializeDistance(part_val);
 
               if (distance !== null) {
-                let pace = day_type == DayType.Long ? fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.MP) + mp_offset : fivek_pace_to_tempo_pace(pace_sec_per_km, classifyTempo($td));
+                let pace = day_type == DayType.Long ? fivek_pace_to_marathon_pace(pace_sec_per_km, MarathonType.MP) + mp_offset : fivek_pace_to_tempo_pace(pace_sec_per_km, classifyTempoTd($td));
                 if (is_3part && i != 1) {
                   pace *= 1.2;
                 }
@@ -755,7 +755,7 @@ program:
               const num_repeats = parseFloat(is_repeated ? distance_parts[0] : '1');
               const distance = is_repeated ? distance_parts[1] : distance_parts[0];
               const distance_in_km = deserializeDistance(distance);
-              const time = fivek_pace_to_repeat_time(pace_sec_per_km, classifyRepeat(distance));
+              const time = fivek_pace_to_repeat_time(pace_sec_per_km, parseRepeatStr(distance));
               const pace_str = `@${formatPace(convertPace(time / distance_in_km, PaceUnit.SecPerKm, pace_unit), pace_unit)}${displayPaceUnit(pace_unit)}`;
               
               total_time += num_repeats * time;
